@@ -1,6 +1,8 @@
 Fenice
 ======
 
+[![Build Status](https://travis-ci.org/ophymx/fenice.png?branch=master)](https://travis-ci.org/ophymx/fenice)
+
 A configuration management tool inspired by (and blatantly copied off)
 [radmind](http://rsug.itd.umich.edu/software/radmind/).
 
