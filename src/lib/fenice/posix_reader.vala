@@ -2,7 +2,7 @@ namespace Fenice {
 
 public class PosixReader : Object, FilesystemReader {
 
-    public Tobject read(string path, Gee.Map<ulong, Tpath?> inodes) {
+    public Tobject read(string filename, Gee.Map<ulong, Tpath?> inodes) {
         Posix.Stat stat;
         int major, minor;
 
