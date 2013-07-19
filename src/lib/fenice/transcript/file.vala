@@ -35,6 +35,7 @@ public class Tfile : Object, Tobject, Tperm {
         _mtime = mtime;
         _size = size;
         _checksum = checksum;
+        this.change_type = change_type;
     }
 
     public char type_char() {
