@@ -10,6 +10,10 @@ public class TranscriptContainer : Object, Gee.Iterable<Tobject>, Transcript {
         this.objects = objects;
     }
 
+    public TranscriptContainer.empty() {
+        this.objects = new Gee.ArrayList<Tobject>();
+    }
+
     public Gee.Iterator<Tobject> iterator() {
         return objects.iterator();
     }

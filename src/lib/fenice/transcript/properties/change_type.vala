@@ -7,6 +7,10 @@ public enum ChangeType {
     EXCLUDED;
 
     public const ChangeType DEFAULT = ChangeType.UPDATED;
+
+    public bool has_changed() {
+        return this != UNCHANGED;
+    }
 }
 
 }

@@ -4,17 +4,20 @@ public class TranscriptDiffer : Object, Gee.Iterable<Tobject>, Transcript {
 
     public Type element_type { get { return typeof(Tobject); }}
 
-    public Gee.Iterable<Tobject> transcript1;
-    public Gee.Iterable<Tobject> transcript2;
+    public bool merge;
+    public Transcript transcript1;
+    public Transcript transcript2;
 
-    public TranscriptDiffer(Transcript transcript1, Transcript transcript2) {
+    public TranscriptDiffer(Transcript transcript1, Transcript transcript2,
+        bool merge = false) {
         this.transcript1 = transcript1;
         this.transcript2 = transcript2;
+        this.merge = merge;
     }
 
     public Gee.Iterator<Tobject> iterator() {
         return new TranscriptDifferIterator(transcript1.iterator(),
-            transcript2.iterator());
+            transcript2.iterator(), merge);
     }
 }
 
@@ -23,14 +26,16 @@ public class TranscriptDifferIterator : Object, Gee.Iterator<Tobject> {
     private Gee.Iterator<Tobject> iterator1;
     private Gee.Iterator<Tobject> iterator2;
 
+    private bool merge = false;
     private bool started = false;
     private bool iterator1_next = false;
     private bool iterator2_next = false;
 
     public TranscriptDifferIterator(Gee.Iterator<Tobject> iterator1,
-        Gee.Iterator<Tobject> iterator2) {
+        Gee.Iterator<Tobject> iterator2, bool merge = false) {
         this.iterator1 = iterator1;
         this.iterator2 = iterator2;
+        this.merge = merge;
     }
 
     public bool next() {
@@ -65,12 +70,14 @@ public class TranscriptDifferIterator : Object, Gee.Iterator<Tobject> {
         Tobject result;
         if (compare_paths() >= 0) {
             result = iterator2.get();
-            if (objects_match()) {
+            if (objects_match() && !merge) {
                 result.change_type = ChangeType.UNCHANGED;
             }
         } else {
             result = iterator1.get();
-            result.change_type = ChangeType.REMOVED;
+            if (!merge) {
+                result.change_type = ChangeType.REMOVED;
+            }
         }
         return result;
     }
@@ -81,7 +88,7 @@ public class TranscriptDifferIterator : Object, Gee.Iterator<Tobject> {
 
     private bool objects_match() {
         return iterator1_next && iterator2_next &&
-        iterator1.get().equal(iterator2.get());
+            iterator1.get().equal(iterator2.get());
     }
 
     private int compare_paths() {

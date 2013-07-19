@@ -82,7 +82,7 @@ public class Fsdiff {
     public static int main(string[] args){
         checksum = "sha1";
         output_file = "-";
-        command_file = "/var/radmind/client/command.K";
+        command_file = "/dev/null"; // "/var/radmind/client/command.K";
         try {
             var opt_context = new OptionContext("PATH");
             opt_context.set_help_enabled(true);
@@ -100,18 +100,18 @@ public class Fsdiff {
             output = FileStream.open(output_file, "w");
         }
 
-        string file = args[1];
         string path = args[1];
 
         if (args.length == 2) {
-            //Transcript transcript = new TranscriptDiffer(new TranscriptFile(file), new Fswalker(path));
-            //var tobjects = new Gee.ArrayList<Tobject>();
-            //tobjects.add(new Tlink(Tpath("/bin/sh"), Ttarget(Tpath("/bin/bash"))));
-            //Transcript transcript = new TranscriptDiffer(new TranscriptContainer(tobjects), new Fswalker(path));
-            Transcript transcript = new Fswalker(path);
+            Loadset loadset = new Loadset();
+            loadset.transcripts.add(new TranscriptFile(command_file));
+
+            Transcript transcript = new TranscriptDiffer(loadset, new Fswalker(path));
 
             foreach (Tobject object in transcript) {
-                output.printf("%s\n", object.to_string());
+                if (object.change_type.has_changed()) {
+                    output.printf("%s\n", object.to_string());
+                }
             }
         } else {
             stderr.printf("error: wrong number of arguments\n");
