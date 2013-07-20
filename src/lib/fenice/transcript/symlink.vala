@@ -32,7 +32,6 @@ public class Tsymlink : Object, TranscriptEntry, Tperm {
         return 'l';
     }
 
-
     public string to_string() {
         var builder = perm_string();
         builder.append_c(' ');

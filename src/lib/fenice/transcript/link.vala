@@ -3,9 +3,7 @@ namespace Fenice {
 public class Tlink : Object, TranscriptEntry {
     private path_t _path;
 
-    public path_t path {
-        get { return _path; }
-    }
+    public path_t path { get { return _path; }}
 
     public target_t target { get; private set; }
 

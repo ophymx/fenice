@@ -109,7 +109,7 @@ public class Fsdiff {
             Transcript transcript = new TranscriptDiffer(loadset, new Fswalker(path));
 
             foreach (var object in transcript) {
-                if (object.change_type.has_changed()) {
+                if (object.has_changed()) {
                     output.printf("%s\n", object.to_string());
                 }
             }

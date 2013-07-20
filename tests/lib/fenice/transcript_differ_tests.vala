@@ -72,8 +72,8 @@ public class TranscriptDifferTests : TranscriptTests {
 
         assert(iter.next());
         assert(iter.get().equal(symlink));
-        assert(iter.get().change_type == ChangeType.REMOVED);
-        assert(iter.get().change_type.has_changed());
+        assert(iter.get().was_removed());
+        assert(iter.get().has_changed());
         assert(!iter.next());
     }
 
@@ -87,8 +87,7 @@ public class TranscriptDifferTests : TranscriptTests {
 
         assert(iter.next());
         assert(iter.get().equal(symlink));
-        assert(iter.get().change_type == ChangeType.UNCHANGED);
-        assert(!iter.get().change_type.has_changed());
+        assert(!iter.get().has_changed());
         assert(!iter.next());
     }
 }

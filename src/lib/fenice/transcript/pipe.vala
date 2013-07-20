@@ -29,7 +29,6 @@ public class Tpipe : Object, TranscriptEntry, Tperm {
         return object_equal(other) && perm_equal(other as Tperm);
     }
 
-
     public string to_string() {
         return perm_string().str;
     }

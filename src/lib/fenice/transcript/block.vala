@@ -17,7 +17,9 @@ public class Tblock : Object, TranscriptEntry, Tperm, Tspecial {
     public gid_t gid { get { return _gid; }}
 
     public int major { get { return _major; }}
+
     public int minor { get { return _minor; }}
+
     public ChangeType change_type { get; set; }
 
 

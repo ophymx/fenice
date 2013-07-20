@@ -12,10 +12,16 @@ public interface TranscriptEntry : Object {
 
     public abstract string to_string();
 
+    public bool has_changed() {
+        return change_type != ChangeType.UNCHANGED;
+    }
+
+    public bool was_removed() {
+        return change_type == ChangeType.REMOVED;
+    }
+
     public StringBuilder object_string() {
-        var builder = new StringBuilder();
-        if (change_type == ChangeType.REMOVED)
-            builder.append("- ");
+        var builder = new StringBuilder(was_removed() ? "- " : "");
         builder.append_printf("%c %-35s\t", type_char(), path.to_string());
         return builder;
     }
@@ -23,7 +29,6 @@ public interface TranscriptEntry : Object {
     protected bool object_equal(TranscriptEntry other) {
         return get_class() == other.get_class() && path.equal(other.path);
     }
-
 }
 
 }
