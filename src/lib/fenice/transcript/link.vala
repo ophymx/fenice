@@ -1,17 +1,13 @@
 namespace Fenice {
 
-public class Tlink : Object, Tobject {
+public class Tlink : Object, TranscriptEntry {
     private Tpath _path;
-    private Ttarget _target;
 
     public Tpath path {
         get { return _path; }
     }
 
-    public Ttarget target {
-        get { return _target; }
-        private set { _target = value; }
-    }
+    public Ttarget target { get; private set; }
 
     public ChangeType change_type { get; set; }
 
@@ -26,7 +22,7 @@ public class Tlink : Object, Tobject {
         return 'h';
     }
 
-    public bool equal(Tobject other) {
+    public bool equal(TranscriptEntry other) {
         return get_class() == other.get_class() &&
             target.equal((other as Tlink).target);
     }

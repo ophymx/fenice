@@ -2,7 +2,8 @@ namespace Fenice {
 
 public class PosixReader : Object, FilesystemReader {
 
-    public Tobject read(string filename, Gee.Map<ulong, Tpath?> inodes) {
+    public TranscriptEntry read(string filename,
+        Gee.Map<ulong, Tpath?> inodes) {
         Posix.Stat stat;
         int major, minor;
 

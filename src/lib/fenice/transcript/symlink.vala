@@ -1,11 +1,10 @@
 namespace Fenice {
 
-public class Tsymlink : Object, Tobject, Tperm {
+public class Tsymlink : Object, TranscriptEntry, Tperm {
     private Tpath _path;
     private Tmode _mode;
     private Tuid _uid;
     private Tgid _gid;
-    private Ttarget _target;
 
     public Tpath path { get { return _path; }}
 
@@ -17,7 +16,7 @@ public class Tsymlink : Object, Tobject, Tperm {
 
     public ChangeType change_type { get; set; }
 
-    public Ttarget target { get { return _target; }}
+    public Ttarget target { get; private set; }
 
     public Tsymlink(Tpath path, Tmode mode, Tuid uid, Tgid gid,
         Ttarget target, ChangeType change_type = ChangeType.DEFAULT) {
@@ -41,7 +40,7 @@ public class Tsymlink : Object, Tobject, Tperm {
         return builder.str;
     }
 
-    public bool equal(Tobject other) {
+    public bool equal(TranscriptEntry other) {
         return object_equal(other) &&
             perm_equal(other as Tperm) &&
             target.equal((other as Tsymlink).target);

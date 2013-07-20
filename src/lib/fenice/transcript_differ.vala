@@ -64,8 +64,8 @@ public class TranscriptDifferIterator : Object, TranscriptIterator {
         return iterator1_next || iterator2_next;
     }
 
-    public new Tobject get() {
-        Tobject result;
+    public new TranscriptEntry get() {
+        TranscriptEntry result;
         if (compare_paths() >= 0) {
             result = iterator2.get();
             if (objects_match() && !merge) {

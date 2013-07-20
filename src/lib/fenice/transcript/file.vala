@@ -1,6 +1,6 @@
 namespace Fenice {
 
-public class Tfile : Object, Tobject, Tperm {
+public class Tfile : Object, TranscriptEntry, Tperm {
     private Tpath _path;
     private Tmode _mode;
     private Tuid _uid;
@@ -42,7 +42,7 @@ public class Tfile : Object, Tobject, Tperm {
         return 'f';
     }
 
-    public bool equal(Tobject other) {
+    public bool equal(TranscriptEntry other) {
         return object_equal(other) && perm_equal(other as Tperm) &&
             mtime.equal((other as Tfile).mtime) &&
             size.equal((other as Tfile).size) &&

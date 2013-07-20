@@ -2,14 +2,14 @@ namespace Fenice {
 
 public class TranscriptContainer : Object, Transcript {
 
-    public Gee.Iterable<Tobject> objects;
+    public Gee.Iterable<TranscriptEntry> objects;
 
-    public TranscriptContainer(Gee.Iterable<Tobject> objects) {
+    public TranscriptContainer(Gee.Iterable<TranscriptEntry> objects) {
         this.objects = objects;
     }
 
     public TranscriptContainer.empty() {
-        this.objects = new Gee.ArrayList<Tobject>();
+        this.objects = new Gee.ArrayList<TranscriptEntry>();
     }
 
     public TranscriptIterator iterator() {
@@ -20,9 +20,9 @@ public class TranscriptContainer : Object, Transcript {
 
 public class TranscriptContainerIterator : Object, TranscriptIterator {
 
-    private Gee.Iterator<Tobject> iterator;
+    private Gee.Iterator<TranscriptEntry> iterator;
 
-    public TranscriptContainerIterator(Gee.Iterator<Tobject> iterator) {
+    public TranscriptContainerIterator(Gee.Iterator<TranscriptEntry> iterator) {
         this.iterator = iterator;
     }
 
@@ -38,7 +38,7 @@ public class TranscriptContainerIterator : Object, TranscriptIterator {
         return iterator.has_next();
     }
 
-    public new Tobject get() {
+    public new TranscriptEntry get() {
         return iterator.get();
     }
 }

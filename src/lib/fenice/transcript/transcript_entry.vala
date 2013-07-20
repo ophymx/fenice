@@ -1,6 +1,6 @@
 namespace Fenice {
 
-public interface Tobject : Object {
+public interface TranscriptEntry : Object {
 
     public abstract Tpath path { get; }
 
@@ -8,7 +8,7 @@ public interface Tobject : Object {
 
     public abstract char type_char();
 
-    public abstract bool equal(Tobject other);
+    public abstract bool equal(TranscriptEntry other);
 
     public abstract string to_string();
 
@@ -20,7 +20,7 @@ public interface Tobject : Object {
         return builder;
     }
 
-    protected bool object_equal(Tobject other) {
+    protected bool object_equal(TranscriptEntry other) {
         return get_class() == other.get_class() && path.equal(other.path);
     }
 

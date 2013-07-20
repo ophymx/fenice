@@ -1,6 +1,6 @@
 namespace Fenice {
 
-public class Tpipe : Object, Tobject, Tperm {
+public class Tpipe : Object, TranscriptEntry, Tperm {
     private Tpath _path;
     private Tmode _mode;
     private Tuid _uid;
@@ -25,7 +25,7 @@ public class Tpipe : Object, Tobject, Tperm {
         this.change_type = change_type;
     }
 
-    public bool equal(Tobject other) {
+    public bool equal(TranscriptEntry other) {
         return object_equal(other) && perm_equal(other as Tperm);
     }
 

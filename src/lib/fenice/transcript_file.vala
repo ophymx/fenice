@@ -18,8 +18,8 @@ public class TranscriptFileIterator : Object, TranscriptIterator {
 
     private DataInputStream data_stream;
 
-    private Tobject current;
-    private Tobject next_object;
+    private TranscriptEntry current;
+    private TranscriptEntry next_object;
 
     public TranscriptFileIterator(DataInputStream data_stream) {
         this.data_stream = data_stream;
@@ -65,11 +65,11 @@ public class TranscriptFileIterator : Object, TranscriptIterator {
         return false;
     }
 
-    public new Tobject get() {
+    public new TranscriptEntry get() {
         return current;
     }
 
-    private Tobject parse_entry(string line) {
+    private TranscriptEntry parse_entry(string line) {
         ChangeType change_type = ChangeType.UNCHANGED;
         int start = 0;
 

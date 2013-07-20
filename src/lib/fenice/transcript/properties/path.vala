@@ -11,14 +11,6 @@ public struct Tpath {
     }
 
     public Tpath.parse(string path, bool case_sensitive=true) {
-        // string escape char?
-        /*
-        this.path = path.replace("\\b",  " " ).replace(
-                                 "\\t", "\t").replace(
-                                 "\\n", "\n").replace(
-                                 "\\r", "\r").replace(
-                                 "\\\\","\\");
-        */
         this.path = path.compress();
         this.case_sensitive = case_sensitive;
     }
@@ -52,17 +44,9 @@ public struct Tpath {
         if (a.length == b.length)
             return 0;
         return (a.length < b.length) ? -1 : 1;
-
     }
 
     public string to_string() {
-        /*
-        return path.replace("\\", "\\\\").replace(
-                            " ",  "\\b"  ).replace(
-                            "\t", "\\t" ).replace(
-                            "\n", "\\n" ).replace(
-                            "\r", "\\r" );
-        */
         return path.escape("").replace(" ", "\\b");
     }
 

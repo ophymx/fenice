@@ -1,6 +1,6 @@
 namespace Fenice {
 
-public interface Tperm : Tobject {
+public interface Tperm : TranscriptEntry {
 
     public abstract Tmode mode { get; }
 

@@ -11,7 +11,7 @@ public interface TranscriptIterator : Object {
     public abstract bool next();
     public abstract bool first();
     public abstract bool has_next();
-    public abstract Tobject get();
+    public abstract TranscriptEntry get();
 
 }
 

@@ -20,7 +20,7 @@ public class FswalkerIterator : Object, TranscriptIterator {
     private Gee.Deque<Gee.Iterator<string>> directory_iterators =
         new Gee.LinkedList<Gee.Iterator<string>>();
 
-    private Tobject current;
+    private TranscriptEntry current;
     private FilesystemReader fs_reader;
 
     private string path;
@@ -64,7 +64,7 @@ public class FswalkerIterator : Object, TranscriptIterator {
         return next();
     }
 
-    public new Tobject get() {
+    public new TranscriptEntry get() {
         return current;
     }
 

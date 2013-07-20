@@ -11,8 +11,8 @@ public class TranscriptDifferTests : TranscriptTests {
             test_unchanged_file);
     }
 
-    protected Gee.ArrayList<Tobject> l1;
-    protected Gee.ArrayList<Tobject> l2;
+    protected Gee.ArrayList<TranscriptEntry> l1;
+    protected Gee.ArrayList<TranscriptEntry> l2;
     protected Transcript t1;
     protected Transcript t2;
 
@@ -21,8 +21,8 @@ public class TranscriptDifferTests : TranscriptTests {
     public Tgid gid1 = Tgid(0);
 
     public override void set_up() {
-        l1 = new Gee.ArrayList<Tobject>();
-        l2 = new Gee.ArrayList<Tobject>();
+        l1 = new Gee.ArrayList<TranscriptEntry>();
+        l2 = new Gee.ArrayList<TranscriptEntry>();
         t1 = new TranscriptContainer(l1);
         t2 = new TranscriptContainer(l2);
         test_transcript = new TranscriptDiffer(t1, t2);
