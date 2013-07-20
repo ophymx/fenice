@@ -2,7 +2,7 @@ namespace Fenice {
 
 public interface TranscriptEntry : Object {
 
-    public abstract Tpath path { get; }
+    public abstract path_t path { get; }
 
     public abstract ChangeType change_type { get; set; }
 

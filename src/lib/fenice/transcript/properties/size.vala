@@ -1,16 +1,16 @@
 namespace Fenice {
 
-public struct Tsize {
+public struct fsize_t {
 
     public size_t size;
     public bool check;
 
-    public Tsize(size_t size, bool check=true) {
+    public fsize_t(size_t size, bool check=true) {
         this.size = size;
         this.check = check;
     }
 
-    public Tsize.parse(string size) {
+    public fsize_t.parse(string size) {
         if (size[0] == '-') {
             this.size = (size_t)uint64.parse(size.substring(1));
             check = false;
@@ -20,11 +20,11 @@ public struct Tsize {
         }
     }
 
-    public bool equal(Tsize other) {
+    public bool equal(fsize_t other) {
         return (!check) | size == other.size;
     }
 
-    public int compare_to(Tsize other) {
+    public int compare_to(fsize_t other) {
         return (int)(other.size - size);
     }
 

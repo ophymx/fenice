@@ -2,11 +2,11 @@ namespace Fenice {
 
 public interface Tperm : TranscriptEntry {
 
-    public abstract Tmode mode { get; }
+    public abstract mode_t mode { get; }
 
-    public abstract Tuid uid { get; }
+    public abstract uid_t uid { get; }
 
-    public abstract Tgid gid { get; }
+    public abstract gid_t gid { get; }
 
     protected bool perm_equal(Tperm other) {
         return mode.equal(other.mode) && uid.equal(other.uid) &&

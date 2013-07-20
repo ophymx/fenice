@@ -1,16 +1,16 @@
 namespace Fenice {
 
-public struct Tgid {
+public struct gid_t {
 
     public uint gid;
     public bool check;
 
-    public class Tgid(uint gid, bool check=true) {
+    public class gid_t(uint gid, bool check=true) {
         this.gid = gid;
         this.check = check;
     }
 
-    public class Tgid.parse(string gid) {
+    public class gid_t.parse(string gid) {
         if (gid[0] == '-') {
             gid.substring(1).scanf("%u", out this.gid);
             check = false;
@@ -20,7 +20,7 @@ public struct Tgid {
         }
     }
 
-    public bool equal(Tgid other) {
+    public bool equal(gid_t other) {
         return (!check) | gid == other.gid;
     }
 

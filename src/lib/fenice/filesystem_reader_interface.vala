@@ -2,7 +2,7 @@ namespace Fenice {
 
 public interface FilesystemReader : Object {
     public abstract TranscriptEntry read(string path,
-        Gee.Map<ulong, Tpath?> inodes);
+        ref Gee.Map<ulong, path_t?> inodes);
     public abstract Gee.Iterable<string> get_directory_entries(string dirname);
 }
 

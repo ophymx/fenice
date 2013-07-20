@@ -1,20 +1,20 @@
 namespace Fenice {
 
-public struct Tchecksum {
+public struct checksum_t {
     public string checksum;
     public bool check;
     public GLib.ChecksumType checksum_type;
 
     private const uint BUFFER_SIZE = 524288;
 
-    public Tchecksum(string checksum, bool check = true,
+    public checksum_t(string checksum, bool check = true,
         GLib.ChecksumType checksum_type = GLib.ChecksumType.SHA1) {
         this.checksum = checksum;
         this.check = check;
         this.checksum_type = checksum_type;
     }
 
-    public Tchecksum.from_file(string filename, bool check = true,
+    public checksum_t.from_file(string filename, bool check = true,
         GLib.ChecksumType checksum_type = GLib.ChecksumType.SHA1) {
         this.check = check;
         this.checksum_type = checksum_type;
@@ -39,7 +39,7 @@ public struct Tchecksum {
         checksum = Base64.encode(buffer[0:buf_len]);
     }
 
-    public Tchecksum.parse(string checksum) {
+    public checksum_t.parse(string checksum) {
         if (checksum[0] == '-') {
             this.checksum = checksum.substring(1);
             check = false;
@@ -49,7 +49,7 @@ public struct Tchecksum {
         }
     }
 
-    public bool equal(Tchecksum other) {
+    public bool equal(checksum_t other) {
         return (!check) | other.checksum == checksum;
     }
 

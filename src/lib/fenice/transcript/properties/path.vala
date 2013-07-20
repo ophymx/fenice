@@ -1,25 +1,25 @@
 namespace Fenice {
 
-public struct Tpath {
+public struct path_t {
 
     public string path;
     public bool case_sensitive;
 
-    public Tpath(string path, bool case_sensitive=true) {
+    public path_t(string path, bool case_sensitive=true) {
         this.path = path;
         this.case_sensitive = case_sensitive;
     }
 
-    public Tpath.parse(string path, bool case_sensitive=true) {
+    public path_t.parse(string path, bool case_sensitive=true) {
         this.path = path.compress();
         this.case_sensitive = case_sensitive;
     }
 
-    public bool equal(Tpath other) {
+    public bool equal(path_t other) {
         return compare_to(other) == 0;
     }
 
-    public int compare_to(Tpath other) {
+    public int compare_to(path_t other) {
         string a;
         string b;
         if (case_sensitive) {

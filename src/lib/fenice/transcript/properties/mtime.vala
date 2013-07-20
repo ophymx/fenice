@@ -1,16 +1,16 @@
 namespace Fenice {
 
-public struct Tmtime {
+public struct mtime_t {
 
     public time_t mtime;
     public bool check;
 
-    public Tmtime(time_t mtime, bool check = true) {
+    public mtime_t(time_t mtime, bool check = true) {
         this.mtime = mtime;
         this.check = check;
     }
 
-    public Tmtime.parse(string mtime) {
+    public mtime_t.parse(string mtime) {
         if (mtime[0] == '-') {
             this.mtime = (time_t) uint64.parse(mtime.substring(1));
             check = false;
@@ -20,11 +20,11 @@ public struct Tmtime {
         }
     }
 
-    public bool equal(Tmtime other) {
+    public bool equal(mtime_t other) {
         return (!check) | mtime == other.mtime;
     }
 
-    public int compare_to(Tmtime other) {
+    public int compare_to(mtime_t other) {
         return (int) (other.mtime - mtime);
     }
 

@@ -16,9 +16,9 @@ public class TranscriptDifferTests : TranscriptTests {
     protected Transcript t1;
     protected Transcript t2;
 
-    public Tmode mode1 = Tmode(0644);
-    public Tuid uid1 = Tuid(0);
-    public Tgid gid1 = Tgid(0);
+    public mode_t mode1 = mode_t(0644);
+    public uid_t uid1 = uid_t(0);
+    public gid_t gid1 = gid_t(0);
 
     public override void set_up() {
         l1 = new Gee.ArrayList<TranscriptEntry>();
@@ -33,12 +33,12 @@ public class TranscriptDifferTests : TranscriptTests {
     }
 
     public void test_merge_sorted() {
-        var a = new Tdir(Tpath("./a"), mode1, uid1, gid1);
-        var b = new Tdir(Tpath("./b"), mode1, uid1, gid1);
-        var c = new Tdir(Tpath("./c"), mode1, uid1, gid1);
-        var d = new Tdir(Tpath("./d"), mode1, uid1, gid1);
-        var e = new Tdir(Tpath("./e"), mode1, uid1, gid1);
-        var f = new Tdir(Tpath("./f"), mode1, uid1, gid1);
+        var a = new Tdir(path_t("./a"), mode1, uid1, gid1);
+        var b = new Tdir(path_t("./b"), mode1, uid1, gid1);
+        var c = new Tdir(path_t("./c"), mode1, uid1, gid1);
+        var d = new Tdir(path_t("./d"), mode1, uid1, gid1);
+        var e = new Tdir(path_t("./e"), mode1, uid1, gid1);
+        var f = new Tdir(path_t("./f"), mode1, uid1, gid1);
         l1.add(a);
         l2.add(b);
         l1.add(c);
@@ -64,8 +64,8 @@ public class TranscriptDifferTests : TranscriptTests {
     }
 
     public void test_removed_file() {
-        var symlink = new Tsymlink(Tpath("./tmp"), mode1, uid1, gid1,
-            Ttarget(Tpath("./var/tmp")));
+        var symlink = new Tsymlink(path_t("./tmp"), mode1, uid1, gid1,
+            target_t(path_t("./var/tmp")));
         l1.add(symlink);
 
         var iter = test_transcript.iterator();
@@ -78,8 +78,8 @@ public class TranscriptDifferTests : TranscriptTests {
     }
 
     public void test_unchanged_file() {
-        var symlink = new Tsymlink(Tpath("./tmp"), mode1, uid1, gid1,
-            Ttarget(Tpath("./var/tmp")));
+        var symlink = new Tsymlink(path_t("./tmp"), mode1, uid1, gid1,
+            target_t(path_t("./var/tmp")));
         l1.add(symlink);
         l2.add(symlink);
 

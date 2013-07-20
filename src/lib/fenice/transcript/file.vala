@@ -1,32 +1,32 @@
 namespace Fenice {
 
 public class Tfile : Object, TranscriptEntry, Tperm {
-    private Tpath _path;
-    private Tmode _mode;
-    private Tuid _uid;
-    private Tgid _gid;
-    private Tmtime _mtime;
-    private Tsize _size;
-    private Tchecksum _checksum;
+    private path_t _path;
+    private mode_t _mode;
+    private uid_t _uid;
+    private gid_t _gid;
+    private mtime_t _mtime;
+    private fsize_t _size;
+    private checksum_t _checksum;
 
-    public Tpath path { get { return _path; }}
+    public path_t path { get { return _path; }}
 
-    public Tmode mode { get { return _mode; }}
+    public mode_t mode { get { return _mode; }}
 
-    public Tuid uid { get { return _uid; }}
+    public uid_t uid { get { return _uid; }}
 
-    public Tgid gid { get { return _gid; }}
+    public gid_t gid { get { return _gid; }}
 
-    public Tmtime mtime { get { return _mtime; }}
+    public mtime_t mtime { get { return _mtime; }}
 
-    public Tsize size { get { return _size; }}
+    public fsize_t size { get { return _size; }}
 
-    public Tchecksum checksum { get { return _checksum; }}
+    public checksum_t checksum { get { return _checksum; }}
 
     public ChangeType change_type { get; set; }
 
-    public Tfile(Tpath path, Tmode mode, Tuid uid, Tgid gid, Tmtime mtime,
-        Tsize size, Tchecksum checksum,
+    public Tfile(path_t path, mode_t mode, uid_t uid, gid_t gid, mtime_t mtime,
+        fsize_t size, checksum_t checksum,
         ChangeType change_type = ChangeType.DEFAULT) {
         _path = path;
         _mode = mode;

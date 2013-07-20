@@ -29,7 +29,7 @@ public class FswalkerTests : TranscriptTests {
         test_transcript = new Fswalker("/dev/null");
         foreach (var object in test_transcript) {
             assert(object.equal(
-                new Tchar(Tpath("/dev/null"), Tmode(0666), Tuid(0), Tgid(0),
+                new Tchar(path_t("/dev/null"), mode_t(0666), uid_t(0), gid_t(0),
                     1, 3)
             ));
         }
@@ -39,8 +39,8 @@ public class FswalkerTests : TranscriptTests {
         test_transcript = new Fswalker("/dev/loop0");
         foreach (var object in test_transcript) {
             assert(object.equal(
-                new Tblock(Tpath("/dev/loop0"), Tmode(0660), Tuid(0), Tgid(6),
-                    7, 0)
+                new Tblock(path_t("/dev/loop0"), mode_t(0660), uid_t(0),
+                    gid_t(6), 7, 0)
             ));
         }
     }
@@ -49,7 +49,8 @@ public class FswalkerTests : TranscriptTests {
         test_transcript = new Fswalker("/dev/log");
         foreach (var object in test_transcript) {
             assert(object.equal(
-                new Tsocket(Tpath("/dev/log"), Tmode(0666), Tuid(0), Tgid(0))
+                new Tsocket(path_t("/dev/log"), mode_t(0666), uid_t(0),
+                    gid_t(0))
             ));
         }
     }
@@ -60,7 +61,7 @@ public class FswalkerTests : TranscriptTests {
         foreach (var object in test_transcript) {
             assert(object is Tpipe);
             var pipe = object as Tpipe;
-            assert(pipe.path.equal(Tpath("/tmp/my_pipe")));
+            assert(pipe.path.equal(path_t("/tmp/my_pipe")));
         }
         File.new_for_path("/tmp/my_pipe").delete();
     }
@@ -70,7 +71,7 @@ public class FswalkerTests : TranscriptTests {
         foreach (var object in test_transcript) {
             assert(object is Tfile);
             var file = object as Tfile;
-            assert(file.path.equal(Tpath(ASSETS_DIR + "/test.T")));
+            assert(file.path.equal(path_t(ASSETS_DIR + "/test.T")));
         }
     }
 
@@ -80,7 +81,7 @@ public class FswalkerTests : TranscriptTests {
         foreach (var object in test_transcript) {
             assert(object is Tdir);
             var dir = object as Tdir;
-            assert(dir.path.equal(Tpath(test_dir)));
+            assert(dir.path.equal(path_t(test_dir)));
         }
         DirUtils.remove(test_dir);
     }

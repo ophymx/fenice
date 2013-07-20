@@ -1,25 +1,25 @@
 namespace Fenice {
 
 public class Tsymlink : Object, TranscriptEntry, Tperm {
-    private Tpath _path;
-    private Tmode _mode;
-    private Tuid _uid;
-    private Tgid _gid;
+    private path_t _path;
+    private mode_t _mode;
+    private uid_t _uid;
+    private gid_t _gid;
 
-    public Tpath path { get { return _path; }}
+    public path_t path { get { return _path; }}
 
-    public Tmode mode { get { return _mode; }}
+    public mode_t mode { get { return _mode; }}
 
-    public Tuid uid { get { return _uid; }}
+    public uid_t uid { get { return _uid; }}
 
-    public Tgid gid { get { return _gid; }}
+    public gid_t gid { get { return _gid; }}
 
     public ChangeType change_type { get; set; }
 
-    public Ttarget target { get; private set; }
+    public target_t target { get; private set; }
 
-    public Tsymlink(Tpath path, Tmode mode, Tuid uid, Tgid gid,
-        Ttarget target, ChangeType change_type = ChangeType.DEFAULT) {
+    public Tsymlink(path_t path, mode_t mode, uid_t uid, gid_t gid,
+        target_t target, ChangeType change_type = ChangeType.DEFAULT) {
         _path = path;
         _mode = mode;
         _uid = uid;

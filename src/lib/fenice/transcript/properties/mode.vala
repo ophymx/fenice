@@ -1,6 +1,6 @@
 namespace Fenice {
 
-public struct Tmode {
+public struct mode_t {
 
     /**
      * File Permission bit mask 0777 OR 4095
@@ -12,12 +12,12 @@ public struct Tmode {
     public uint mode;
     public uint mask;
 
-    public Tmode(uint mode, uint mask=0) {
+    public mode_t(uint mode, uint mask=0) {
         this.mode = mode;
         this.mask = mask ^ PERM_MASK;
     }
 
-    public Tmode.parse(string mode_mask_str) {
+    public mode_t.parse(string mode_mask_str) {
         uint mode = 493;
         uint mask = 0;
         if (mode_mask_str.length == 9) {
@@ -31,7 +31,7 @@ public struct Tmode {
         this.mask = (mask) ^ PERM_MASK;
     }
 
-    public bool equal(Tmode other) {
+    public bool equal(mode_t other) {
         return (mode & mask) == (other.mode & other.mask);
     }
 

@@ -1,16 +1,16 @@
 namespace Fenice {
 
-public struct Tuid {
+public struct uid_t {
 
     public uint uid;
     public bool check;
 
-    public Tuid(uint uid, bool check=true) {
+    public uid_t(uint uid, bool check=true) {
         this.uid = uid;
         this.check = check;
     }
 
-    public Tuid.parse(string uid) {
+    public uid_t.parse(string uid) {
         if (uid[0] == '-') {
             uid.substring(1).scanf("%u", out this.uid);
             check = false;
@@ -20,7 +20,7 @@ public struct Tuid {
         }
     }
 
-    public bool equal(Tuid other) {
+    public bool equal(uid_t other) {
         return (!check) | uid == other.uid;
     }
 

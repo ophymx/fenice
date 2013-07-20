@@ -1,41 +1,41 @@
 namespace Fenice {
 
-public struct Ttarget {
+public struct target_t {
 
-    public Tpath target;
+    public path_t target;
     public bool check;
 
-    public Ttarget(Tpath target, bool check=true) {
+    public target_t(path_t target, bool check=true) {
         this.target = target;
         this.check = check;
     }
 
-    public Ttarget.from_symlink(string symlink, bool check=true) {
+    public target_t.from_symlink(string symlink, bool check=true) {
         string target = "";
         try {
             target = FileUtils.read_link(symlink);
         } catch(FileError e) {
             stderr.printf("%s\n", e.message);
         }
-        this.target = Tpath(target);
+        this.target = path_t(target);
         this.check = check;
     }
 
-    public Ttarget.parse(string target) {
+    public target_t.parse(string target) {
         if (target[0] == '-') {
-            this.target = Tpath.parse(target.substring(1));
+            this.target = path_t.parse(target.substring(1));
             check = false;
         } else {
-            this.target = Tpath.parse(target);
+            this.target = path_t.parse(target);
             check = true;
         }
     }
 
-    public bool equal(Ttarget other) {
+    public bool equal(target_t other) {
         return (!check) | target.equal(other.target);
     }
 
-    public int compare_to(Ttarget other) {
+    public int compare_to(target_t other) {
         return target.compare_to(other.target);
     }
 

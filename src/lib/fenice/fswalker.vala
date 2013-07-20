@@ -15,7 +15,7 @@ public class Fswalker : Object, Transcript {
 
 public class FswalkerIterator : Object, TranscriptIterator {
 
-    private Gee.Map<ulong, Tpath?> inodes = new Gee.HashMap<ulong, Tpath?>();
+    private Gee.Map<ulong, path_t?> inodes = new Gee.HashMap<ulong, path_t?>();
 
     private Gee.Deque<Gee.Iterator<string>> directory_iterators =
         new Gee.LinkedList<Gee.Iterator<string>>();
@@ -45,7 +45,7 @@ public class FswalkerIterator : Object, TranscriptIterator {
                     return false;
             }
         }
-        current = fs_reader.read(current_path(), inodes);
+        current = fs_reader.read(current_path(), ref inodes);
         return true;
     }
 

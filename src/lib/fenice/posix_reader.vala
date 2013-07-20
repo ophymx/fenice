@@ -3,22 +3,22 @@ namespace Fenice {
 public class PosixReader : Object, FilesystemReader {
 
     public TranscriptEntry read(string filename,
-        Gee.Map<ulong, Tpath?> inodes) {
+        ref Gee.Map<ulong, path_t?> inodes) {
         Posix.Stat stat;
         int major, minor;
 
         Posix.lstat(filename, out stat);
         ulong inode = (ulong) stat.st_ino;
-        Tpath path = Tpath(filename);
+        path_t path = path_t(filename);
 
         if (inodes.has_key(inode))
-            return new Tlink(path, Ttarget(inodes[inode]));
+            return new Tlink(path, target_t(inodes[inode]));
 
         inodes[inode] = path;
 
-        Tmode mode = Tmode((uint) stat.st_mode & Tmode.PERM_MASK);
-        Tgid gid = Tgid((uint) stat.st_gid);
-        Tuid uid = Tuid((uint) stat.st_uid);
+        mode_t mode = mode_t((uint) stat.st_mode & mode_t.PERM_MASK);
+        gid_t gid = gid_t((uint) stat.st_gid);
+        uid_t uid = uid_t((uint) stat.st_uid);
 
         switch (stat.st_mode & Posix.S_IFMT) {
             case Posix.S_IFDIR:
@@ -35,7 +35,7 @@ public class PosixReader : Object, FilesystemReader {
                 return new Tblock(path, mode, uid, gid, major, minor);
 
             case Posix.S_IFLNK:
-                Ttarget target = Ttarget.from_symlink(filename);
+                target_t target = target_t.from_symlink(filename);
                 return new Tsymlink(path, mode, uid, gid, target);
 
             case Posix.S_IFSOCK:
@@ -46,9 +46,9 @@ public class PosixReader : Object, FilesystemReader {
 
             case Posix.S_IFREG:
             default:
-                Tmtime mtime = Tmtime(stat.st_mtime);
-                Tsize size = Tsize(stat.st_size);
-                Tchecksum checksum = Tchecksum.from_file(filename);
+                mtime_t mtime = mtime_t(stat.st_mtime);
+                fsize_t size = fsize_t(stat.st_size);
+                checksum_t checksum = checksum_t.from_file(filename);
                 return new Tfile(path, mode, uid, gid, mtime, size, checksum);
         }
     }

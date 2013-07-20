@@ -19,48 +19,51 @@ public class TranscriptFileTests : TranscriptTests {
 
         assert(iter.next());
         assert(iter.get().equal(
-            new Tlink(Tpath("./hardlink"),
-                Ttarget(Tpath("./hardlink-target"))
+            new Tlink(path_t("./hardlink"),
+                target_t(path_t("./hardlink-target"))
             )
         ));
 
         assert(iter.next());
         assert(iter.get().equal(
-            new Tdir(Tpath("./dir"), Tmode(0755), Tuid(10), Tgid(11))
+            new Tdir(path_t("./dir"), mode_t(0755), uid_t(10), gid_t(11))
         ));
 
         assert(iter.next());
         assert(iter.get().equal(
-            new Tchar(Tpath("./dev/null"), Tmode(0666), Tuid(0), Tgid(0), 1, 3)
+            new Tchar(path_t("./dev/null"), mode_t(0666), uid_t(0), gid_t(0), 1,
+                3)
         ));
 
         assert(iter.next());
         assert(iter.get().equal(
-            new Tblock(Tpath("./dev/sda"), Tmode(0660), Tuid(0), Tgid(1), 8, 0)
+            new Tblock(path_t("./dev/sda"), mode_t(0660), uid_t(0), gid_t(1), 8,
+                0)
         ));
 
         assert(iter.next());
         assert(iter.get().equal(
-            new Tsymlink(Tpath("./tmp"), Tmode(0777), Tuid(0), Tgid(0),
-                Ttarget(Tpath("./var/tmp")))
+            new Tsymlink(path_t("./tmp"), mode_t(0777), uid_t(0), gid_t(0),
+                target_t(path_t("./var/tmp")))
         ));
 
         assert(iter.next());
         assert(iter.get().equal(
-            new Tsocket(Tpath("./dev/log"), Tmode(0666), Tuid(0), Tgid(0))
+            new Tsocket(path_t("./dev/log"), mode_t(0666), uid_t(0), gid_t(0))
         ));
 
         assert(iter.next());
         assert(iter.get().equal(
-            new Tpipe(Tpath("./var/run/pipe"), Tmode(0644), Tuid(12), Tgid(0))
+            new Tpipe(path_t("./var/run/pipe"), mode_t(0644), uid_t(12),
+                gid_t(0))
         ));
 
         assert(iter.next());
         assert(iter.get().equal(
             new Tfile(
-                Tpath("./bar.txt"), Tmode(0644), Tuid(2), Tgid(8),
-                Tmtime(1374205432), Tsize(5),
-                Tchecksum("rLrvJ15Gp/FMHvRW//LIu+jIRyQ=")
+                path_t("./bar.txt"), mode_t(0644), uid_t(2), gid_t(8),
+                mtime_t(1374205432), fsize_t(5),
+                checksum_t("rLrvJ15Gp/FMHvRW//LIu+jIRyQ=")
             )
         ));
 

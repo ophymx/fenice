@@ -1,17 +1,17 @@
 namespace Fenice {
 
 public class Tlink : Object, TranscriptEntry {
-    private Tpath _path;
+    private path_t _path;
 
-    public Tpath path {
+    public path_t path {
         get { return _path; }
     }
 
-    public Ttarget target { get; private set; }
+    public target_t target { get; private set; }
 
     public ChangeType change_type { get; set; }
 
-    public Tlink(Tpath path, Ttarget target,
+    public Tlink(path_t path, target_t target,
         ChangeType change_type = ChangeType.DEFAULT) {
         _path = path;
         this.target = target;
