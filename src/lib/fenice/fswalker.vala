@@ -1,8 +1,6 @@
 namespace Fenice {
 
-public class Fswalker : Object, Gee.Iterable<Tobject>, Transcript {
-
-    public Type element_type { get { return typeof(Tobject); }}
+public class Fswalker : Object, Transcript {
 
     private string path;
 
@@ -10,12 +8,12 @@ public class Fswalker : Object, Gee.Iterable<Tobject>, Transcript {
         this.path = path;
     }
 
-    public Gee.Iterator<Tobject> iterator() {
+    public TranscriptIterator iterator() {
         return new FswalkerIterator(path);
     }
 }
 
-public class FswalkerIterator : Object, Gee.Iterator<Tobject> {
+public class FswalkerIterator : Object, TranscriptIterator {
 
     private Gee.Map<ulong, Tpath?> inodes = new Gee.HashMap<ulong, Tpath?>();
 
@@ -68,10 +66,6 @@ public class FswalkerIterator : Object, Gee.Iterator<Tobject> {
 
     public new Tobject get() {
         return current;
-    }
-
-    public void remove() {
-        assert_not_reached();
     }
 
     private void push_directory() {

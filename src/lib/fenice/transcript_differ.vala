@@ -1,8 +1,6 @@
 namespace Fenice {
 
-public class TranscriptDiffer : Object, Gee.Iterable<Tobject>, Transcript {
-
-    public Type element_type { get { return typeof(Tobject); }}
+public class TranscriptDiffer : Object, Transcript {
 
     public bool merge;
     public Transcript transcript1;
@@ -15,24 +13,24 @@ public class TranscriptDiffer : Object, Gee.Iterable<Tobject>, Transcript {
         this.merge = merge;
     }
 
-    public Gee.Iterator<Tobject> iterator() {
+    public TranscriptIterator iterator() {
         return new TranscriptDifferIterator(transcript1.iterator(),
             transcript2.iterator(), merge);
     }
 }
 
-public class TranscriptDifferIterator : Object, Gee.Iterator<Tobject> {
+public class TranscriptDifferIterator : Object, TranscriptIterator {
 
-    private Gee.Iterator<Tobject> iterator1;
-    private Gee.Iterator<Tobject> iterator2;
+    private TranscriptIterator iterator1;
+    private TranscriptIterator iterator2;
 
     private bool merge = false;
     private bool started = false;
     private bool iterator1_next = false;
     private bool iterator2_next = false;
 
-    public TranscriptDifferIterator(Gee.Iterator<Tobject> iterator1,
-        Gee.Iterator<Tobject> iterator2, bool merge = false) {
+    public TranscriptDifferIterator(TranscriptIterator iterator1,
+        TranscriptIterator iterator2, bool merge = false) {
         this.iterator1 = iterator1;
         this.iterator2 = iterator2;
         this.merge = merge;
@@ -80,10 +78,6 @@ public class TranscriptDifferIterator : Object, Gee.Iterator<Tobject> {
             }
         }
         return result;
-    }
-
-    public void remove() {
-        assert_not_reached();
     }
 
     private bool objects_match() {

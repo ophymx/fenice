@@ -1,8 +1,6 @@
 namespace Fenice {
 
-public class TranscriptFile : Object, Gee.Iterable<Tobject>, Transcript {
-
-    public Type element_type { get { return typeof(Tobject); }}
+public class TranscriptFile : Object, Transcript {
 
     private File file;
 
@@ -10,13 +8,13 @@ public class TranscriptFile : Object, Gee.Iterable<Tobject>, Transcript {
         this.file = File.new_for_path(filename);
     }
 
-    public Gee.Iterator<Tobject> iterator() {
+    public TranscriptIterator iterator() {
         DataInputStream data_stream = new DataInputStream(file.read());
         return new TranscriptFileIterator(data_stream);
     }
 }
 
-public class TranscriptFileIterator : Object, Gee.Iterator<Tobject> {
+public class TranscriptFileIterator : Object, TranscriptIterator {
 
     private DataInputStream data_stream;
 
@@ -69,10 +67,6 @@ public class TranscriptFileIterator : Object, Gee.Iterator<Tobject> {
 
     public new Tobject get() {
         return current;
-    }
-
-    public void remove() {
-        assert_not_reached();
     }
 
     private Tobject parse_entry(string line) {

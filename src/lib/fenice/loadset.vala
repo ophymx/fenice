@@ -1,8 +1,6 @@
 namespace Fenice {
 
-public class Loadset : Object, Gee.Iterable<Tobject>, Transcript {
-
-    public Type element_type { get { return typeof(Tobject); }}
+public class Loadset : Object, Transcript {
 
     public Gee.ArrayList<Transcript> transcripts;
 
@@ -11,7 +9,7 @@ public class Loadset : Object, Gee.Iterable<Tobject>, Transcript {
         this.transcripts = transcripts;
     }
 
-    public Gee.Iterator<Tobject> iterator() {
+    public TranscriptIterator iterator() {
         Transcript previous = new TranscriptContainer.empty();
         foreach (Transcript transcript in transcripts) {
             previous = new TranscriptDiffer(previous, transcript, true);
