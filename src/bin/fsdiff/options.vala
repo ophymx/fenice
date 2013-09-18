@@ -26,13 +26,12 @@ public class Options {
     }
 
     private GLib.OptionEntry option(string long_name, char short_name,
-        GLib.OptionArg arg_type, ref string arg_reference, string description,
-        string arg_description) {
+        ref string arg_reference, string description, string arg_description) {
         GLib.OptionEntry option = GLib.OptionEntry();
         option.long_name        = long_name;
         option.short_name       = short_name;
         option.flags            = 0;
-        option.arg              = arg_type;
+        option.arg              = OptionArg.STRING;
         option.arg_data         = (void*) arg_reference;
         option.description      = description;
         option.arg_description  = arg_description;
@@ -68,7 +67,7 @@ public class Options {
         options += flag("create", 'C', ref creatable_transcript,
             "produces a creatable transcript.");
 
-        options += option("checksum", 'c', OptionArg.STRING, ref checksum,
+        options += option("checksum", 'c', ref checksum,
             "enables checksuming.", "CHECKSUM");
 
         options += flag("case-insensitive", 'I', ref case_insensitive,
