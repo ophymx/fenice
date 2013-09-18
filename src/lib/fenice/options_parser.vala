@@ -1,4 +1,4 @@
-namespace Fenice.Fsdiff {
+namespace Fenice {
 
 public class OptionsParser {
     private GLib.OptionEntry[] options = {};
