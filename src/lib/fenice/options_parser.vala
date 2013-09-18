@@ -34,6 +34,19 @@ public class OptionsParser {
         options += option;
     }
 
+    public void add_int(string long_name, char short_name,
+        ref int arg_reference, string description, string arg_description) {
+        GLib.OptionEntry option = GLib.OptionEntry();
+        option.long_name        = long_name;
+        option.short_name       = short_name;
+        option.flags            = 0;
+        option.arg              = OptionArg.INT;
+        option.arg_data         = (void*) arg_reference;
+        option.description      = description;
+        option.arg_description  = arg_description;
+        options += option;
+    }
+
     public void add_file(string long_name, char short_name,
         ref string arg_reference, string description) {
         GLib.OptionEntry option = GLib.OptionEntry();
@@ -44,6 +57,19 @@ public class OptionsParser {
         option.arg_data         = (void*) arg_reference;
         option.description      = description;
         option.arg_description  = "FILE";
+        options += option;
+    }
+
+    public void add_directory(string long_name, char short_name,
+        ref string arg_reference, string description) {
+        GLib.OptionEntry option = GLib.OptionEntry();
+        option.long_name        = long_name;
+        option.short_name       = short_name;
+        option.flags            = 0;
+        option.arg              = OptionArg.FILENAME;
+        option.arg_data         = (void*) arg_reference;
+        option.description      = description;
+        option.arg_description  = "DIRECTORY";
         options += option;
     }
 
