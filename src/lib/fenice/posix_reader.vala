@@ -5,7 +5,7 @@ public class PosixReader : Object, FilesystemReader {
     public TranscriptEntry read(string filename,
         ref Gee.Map<ulong, path_t?> inodes) {
         Posix.Stat stat;
-        uint major, minor;
+        int major, minor;
 
         Posix.lstat(filename, out stat);
         ulong inode = (ulong) stat.st_ino;
@@ -25,13 +25,13 @@ public class PosixReader : Object, FilesystemReader {
                 return new Tdir(path, mode, uid, gid);
 
             case Posix.S_IFCHR:
-                major = Posix.major(stat.st_rdev);
-                minor = Posix.minor(stat.st_rdev);
+                major = Linux.major(stat.st_rdev);
+                minor = Linux.minor(stat.st_rdev);
                 return new Tchar(path, mode, uid, gid, major, minor);
 
             case Posix.S_IFBLK:
-                major = Posix.major(stat.st_rdev);
-                minor = Posix.minor(stat.st_rdev);
+                major = Linux.major(stat.st_rdev);
+                minor = Linux.minor(stat.st_rdev);
                 return new Tblock(path, mode, uid, gid, major, minor);
 
             case Posix.S_IFLNK:
