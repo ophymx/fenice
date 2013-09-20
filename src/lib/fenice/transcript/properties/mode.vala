@@ -4,8 +4,6 @@ public struct mode_t {
 
     /**
      * File Permission bit mask 0777 OR 4095
-     * Posix.S_ISUID | Posix.S_ISGID | Posix.S_ISVTX |
-     *     Posix.S_IRWXU | Posix.S_IRWXG | Posix.S_IRWXO;
      */
     public static const uint PERM_MASK = 4095;
 
@@ -41,9 +39,9 @@ public struct mode_t {
 
     public string to_string() {
         StringBuilder builder = new StringBuilder();
-        builder.append_printf("%04o", (uint)mode);
+        builder.append_printf("%04o", mode);
         if (mask != PERM_MASK)
-            builder.append_printf("-%04o", (uint)(mask ^ PERM_MASK));
+            builder.append_printf("-%04o", mask ^ PERM_MASK);
         return builder.str;
     }
 }
