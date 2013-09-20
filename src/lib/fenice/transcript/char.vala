@@ -5,8 +5,8 @@ public class Tchar : Object, TranscriptEntry, Tperm, Tspecial {
     private mode_t _mode;
     private uid_t _uid;
     private gid_t _gid;
-    private int _major;
-    private int _minor;
+    private uint _major;
+    private uint _minor;
 
     public path_t path { get { return _path; }}
 
@@ -16,14 +16,14 @@ public class Tchar : Object, TranscriptEntry, Tperm, Tspecial {
 
     public gid_t gid { get { return _gid; }}
 
-    public int major { get { return _major; }}
+    public uint major { get { return _major; }}
 
-    public int minor { get { return _minor; }}
+    public uint minor { get { return _minor; }}
 
     public ChangeType change_type { get; set; }
 
-    public Tchar(path_t path, mode_t mode, uid_t uid, gid_t gid, int major,
-        int minor, ChangeType change_type = ChangeType.DEFAULT) {
+    public Tchar(path_t path, mode_t mode, uid_t uid, gid_t gid, uint major,
+        uint minor, ChangeType change_type = ChangeType.DEFAULT) {
         _path = path;
         _mode = mode;
         _uid = uid;
