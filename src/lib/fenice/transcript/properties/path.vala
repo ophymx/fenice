@@ -46,6 +46,13 @@ public struct path_t {
         return (a.length < b.length) ? -1 : 1;
     }
 
+    public bool match(string pattern) {
+        if (case_sensitive)
+            return Posix.fnmatch(path, pattern, 0) == 0;
+        else
+            return Posix.fnmatch(path.casefold(), pattern, 0) == 0;
+    }
+
     public string to_string() {
         return path.escape("").replace(" ", "\\b");
     }
