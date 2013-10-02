@@ -15,7 +15,6 @@ public class TranscriptContainer : Object, Transcript {
     public TranscriptIterator iterator() {
         return new TranscriptContainerIterator(objects.iterator());
     }
-
 }
 
 public class TranscriptContainerIterator : Object, TranscriptIterator {

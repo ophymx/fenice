@@ -6,5 +6,4 @@ public abstract class TranscriptTests : Gee.TestCase {
     }
 
     protected Transcript test_transcript;
-
 }

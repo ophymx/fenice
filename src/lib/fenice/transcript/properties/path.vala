@@ -56,7 +56,6 @@ public struct path_t {
     public string to_string() {
         return path.escape("").replace(" ", "\\b");
     }
-
 }
 
 }

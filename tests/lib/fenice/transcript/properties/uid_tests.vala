@@ -18,5 +18,4 @@ public class uid_tTests : TranscriptTests {
         assert(uid.uid == 11);
         assert(!uid.check);
     }
-
 }

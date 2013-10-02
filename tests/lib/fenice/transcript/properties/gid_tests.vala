@@ -18,5 +18,4 @@ public class gid_tTests : TranscriptTests {
         assert(gid.gid == 11);
         assert(!gid.check);
     }
-
 }

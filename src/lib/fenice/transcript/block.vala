@@ -22,7 +22,6 @@ public class Tblock : Object, TranscriptEntry, Tperm, Tspecial {
 
     public ChangeType change_type { get; set; }
 
-
     public Tblock(path_t path, mode_t mode, uid_t uid, gid_t gid, int major,
         int minor, ChangeType change_type = ChangeType.DEFAULT) {
         _path = path;
