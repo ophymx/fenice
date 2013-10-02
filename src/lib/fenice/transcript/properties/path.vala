@@ -11,7 +11,7 @@ public struct path_t {
     }
 
     public path_t.parse(string path, bool case_sensitive=true) {
-        this.path = path.compress();
+        this.path = path.replace("\\b", " ").compress();
         this.case_sensitive = case_sensitive;
     }
 
