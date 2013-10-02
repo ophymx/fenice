@@ -20,12 +20,6 @@ public interface TranscriptEntry : Object {
         return change_type == ChangeType.REMOVED;
     }
 
-    public StringBuilder object_string() {
-        var builder = new StringBuilder(was_removed() ? "- " : "");
-        builder.append_printf("%c %-35s\t", type_char(), path.to_string());
-        return builder;
-    }
-
     protected bool object_equal(TranscriptEntry other) {
         return get_class() == other.get_class() && path.equal(other.path);
     }

@@ -50,10 +50,7 @@ public class Tfile : Object, TranscriptEntry, Tperm {
     }
 
     public string to_string() {
-        var builder = perm_string();
-        builder.append_printf(" %9s %7s %s", mtime.to_string(),
-            size.to_string(), checksum.to_string());
-        return builder.str;
+        return (new FilePresenter()).present(this);
     }
 }
 

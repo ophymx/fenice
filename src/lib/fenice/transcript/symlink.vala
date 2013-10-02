@@ -33,10 +33,7 @@ public class Tsymlink : Object, TranscriptEntry, Tperm {
     }
 
     public string to_string() {
-        var builder = perm_string();
-        builder.append_c(' ');
-        builder.append(target.to_string());
-        return builder.str;
+        return (new SymlinkPresenter()).present(this);
     }
 
     public bool equal(TranscriptEntry other) {

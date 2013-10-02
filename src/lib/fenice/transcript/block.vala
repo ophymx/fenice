@@ -40,7 +40,7 @@ public class Tblock : Object, TranscriptEntry, Tperm, Tspecial {
     }
 
     public string to_string() {
-        return special_string().str;
+        return (new BlockPresenter()).present(this);
     }
 
     public char type_char() {

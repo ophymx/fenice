@@ -30,7 +30,7 @@ public class Tsocket : Object, TranscriptEntry, Tperm {
     }
 
     public string to_string() {
-        return perm_string().str;
+        return (new SocketPresenter()).present(this);
     }
 
     public char type_char() {

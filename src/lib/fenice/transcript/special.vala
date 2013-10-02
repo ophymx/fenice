@@ -8,12 +8,6 @@ public interface Tspecial : Tperm {
     protected bool special_equal(Tspecial other) {
         return major == other.major && minor == other.minor;
     }
-
-    public StringBuilder special_string() {
-        var builder = perm_string();
-        builder.append_printf(" %5d %5d", major, minor);
-        return builder;
-    }
 }
 
 }

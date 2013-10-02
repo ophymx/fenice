@@ -26,9 +26,7 @@ public class Tlink : Object, TranscriptEntry {
     }
 
     public string to_string() {
-        StringBuilder builder = object_string();
-        builder.append(target.to_string());
-        return builder.str;
+        return (new LinkPresenter()).present(this);
     }
 }
 

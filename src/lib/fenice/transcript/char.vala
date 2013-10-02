@@ -40,7 +40,7 @@ public class Tchar : Object, TranscriptEntry, Tperm, Tspecial {
     }
 
     public string to_string() {
-        return special_string().str;
+        return (new CharPresenter()).present(this);
     }
 
     public char type_char() {
