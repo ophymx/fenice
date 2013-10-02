@@ -1,6 +1,6 @@
 namespace Fenice {
 
-public class TranscriptEntryLineParser : Object {
+public class TranscriptEntryParser : Object {
 
     public TranscriptEntry parse(string line) {
         ChangeType change_type = ChangeType.UNCHANGED;

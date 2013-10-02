@@ -21,8 +21,7 @@ public class TranscriptFileIterator : Object, TranscriptIterator {
     private TranscriptEntry current;
     private TranscriptEntry next_object;
 
-    private TranscriptEntryLineParser line_parser =
-        new TranscriptEntryLineParser();
+    private TranscriptEntryParser parser = new TranscriptEntryParser();
 
     public TranscriptFileIterator(DataInputStream data_stream) {
         this.data_stream = data_stream;
@@ -36,7 +35,7 @@ public class TranscriptFileIterator : Object, TranscriptIterator {
         try {
             line = data_stream.read_line_utf8(out size);
             if (line != null) {
-                next_object = line_parser.parse(line);
+                next_object = parser.parse(line);
             } else {
                 next_object = null;
             }
