@@ -19,8 +19,7 @@ public class Main {
         Loadset loadset = new Loadset();
         loadset.transcripts.add(new TranscriptFile(Options.command_file));
 
-        Fswalker walker = new Fswalker(Options.path());
-
+        Fswalker walker = new Fswalker(Options.path(), loadset.excludes());
         Transcript transcript = new TranscriptDiffer(loadset, walker);
 
         foreach (var object in transcript) {

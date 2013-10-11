@@ -3,9 +3,15 @@ namespace Fenice {
 public class Fswalker : Object, Transcript {
 
     private string path;
+    private Gee.Set<string> _excludes;
 
-    public Fswalker(string path) {
+    public Fswalker(string path, Gee.Set<string> excludes) {
         this.path = path;
+        _excludes = excludes;
+    }
+
+    public Gee.Set<string> excludes() {
+        return _excludes;
     }
 
     public TranscriptIterator iterator() {

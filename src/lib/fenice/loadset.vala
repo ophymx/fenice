@@ -9,6 +9,14 @@ public class Loadset : Object, Transcript {
         this.transcripts = transcripts;
     }
 
+    public Gee.Set<string> excludes() {
+        Gee.HashSet<string> excludes = new Gee.HashSet<string>();
+        foreach (Transcript transcript in transcripts) {
+            excludes.add_all(transcript.excludes());
+        }
+        return excludes;
+    }
+
     public TranscriptIterator iterator() {
         Transcript previous = new TranscriptContainer.empty();
         foreach (Transcript transcript in transcripts) {

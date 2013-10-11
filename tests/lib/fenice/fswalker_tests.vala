@@ -17,16 +17,12 @@ public class FswalkerTests : TranscriptTests {
             test_directory);
     }
 
-    public override void set_up() {
-        test_transcript = new Fswalker(ASSETS_DIR + "/walker_tests");
-    }
-
     public override void tear_down() {
         test_transcript = null;
     }
 
     public void test_dev_null() {
-        test_transcript = new Fswalker("/dev/null");
+        test_transcript = new Fswalker("/dev/null", Gee.Set.empty<string>());
         foreach (var object in test_transcript) {
             assert(object.equal(
                 new Tchar(path_t("/dev/null"), mode_t(0666), uid_t(0), gid_t(0),
@@ -36,7 +32,7 @@ public class FswalkerTests : TranscriptTests {
     }
 
     public void test_dev_loop0() {
-        test_transcript = new Fswalker("/dev/loop0");
+        test_transcript = new Fswalker("/dev/loop0", Gee.Set.empty<string>());
         foreach (var object in test_transcript) {
             assert(object.equal(
                 new Tblock(path_t("/dev/loop0"), mode_t(0660), uid_t(0),
@@ -46,7 +42,7 @@ public class FswalkerTests : TranscriptTests {
     }
 
     public void test_dev_log() {
-        test_transcript = new Fswalker("/dev/log");
+        test_transcript = new Fswalker("/dev/log", Gee.Set.empty<string>());
         foreach (var object in test_transcript) {
             assert(object.equal(
                 new Tsocket(path_t("/dev/log"), mode_t(0666), uid_t(0),
@@ -57,7 +53,7 @@ public class FswalkerTests : TranscriptTests {
 
     public void test_named_pipe() {
         run({"mkfifo", "/tmp/my_pipe", null});
-        test_transcript = new Fswalker("/tmp/my_pipe");
+        test_transcript = new Fswalker("/tmp/my_pipe", Gee.Set.empty<string>());
         foreach (var object in test_transcript) {
             assert(object is Tpipe);
             var pipe = object as Tpipe;
@@ -67,7 +63,8 @@ public class FswalkerTests : TranscriptTests {
     }
 
     public void test_regular_file() {
-        test_transcript = new Fswalker(ASSETS_DIR + "/test.T");
+        test_transcript = new Fswalker(ASSETS_DIR + "/test.T",
+            Gee.Set.empty<string>());
         foreach (var object in test_transcript) {
             assert(object is Tfile);
             var file = object as Tfile;
@@ -77,7 +74,7 @@ public class FswalkerTests : TranscriptTests {
 
     public void test_directory() {
         string test_dir = DirUtils.make_tmp(null);
-        test_transcript = new Fswalker(test_dir);
+        test_transcript = new Fswalker(test_dir, Gee.Set.empty<string>());
         foreach (var object in test_transcript) {
             assert(object is Tdir);
             var dir = object as Tdir;
