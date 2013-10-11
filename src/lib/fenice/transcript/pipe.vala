@@ -32,10 +32,6 @@ public class Tpipe : Object, TranscriptEntry, Tperm {
     public string to_string() {
         return (new PipePresenter()).present(this);
     }
-
-    public char type_char() {
-        return 'p';
-    }
 }
 
 }

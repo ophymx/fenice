@@ -6,8 +6,6 @@ public interface TranscriptEntry : Object {
 
     public abstract ChangeType change_type { get; set; }
 
-    public abstract char type_char();
-
     public abstract bool equal(TranscriptEntry other);
 
     public abstract string to_string();

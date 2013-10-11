@@ -38,10 +38,6 @@ public class Tfile : Object, TranscriptEntry, Tperm {
         this.change_type = change_type;
     }
 
-    public char type_char() {
-        return 'f';
-    }
-
     public bool equal(TranscriptEntry other) {
         return object_equal(other) && perm_equal(other as Tperm) &&
             mtime.equal((other as Tfile).mtime) &&

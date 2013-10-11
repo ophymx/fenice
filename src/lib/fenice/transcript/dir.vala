@@ -35,10 +35,6 @@ public class Tdir : Object, TranscriptEntry, Tperm {
     public string to_string() {
         return (new DirPresenter()).present(this);
     }
-
-    public char type_char() {
-        return 'd';
-    }
 }
 
 }

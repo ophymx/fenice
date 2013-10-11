@@ -16,10 +16,6 @@ public class Tlink : Object, TranscriptEntry {
         this.change_type = change_type;
     }
 
-    public char type_char() {
-        return 'h';
-    }
-
     public bool equal(TranscriptEntry other) {
         return get_class() == other.get_class() &&
             target.equal((other as Tlink).target);

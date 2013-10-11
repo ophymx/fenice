@@ -42,10 +42,6 @@ public class Tblock : Object, TranscriptEntry, Tperm, Tspecial {
     public string to_string() {
         return (new BlockPresenter()).present(this);
     }
-
-    public char type_char() {
-        return 'b';
-    }
 }
 
 }

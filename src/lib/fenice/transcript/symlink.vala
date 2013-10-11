@@ -28,10 +28,6 @@ public class Tsymlink : Object, TranscriptEntry, Tperm {
         this.change_type = change_type;
     }
 
-    public char type_char() {
-        return 'l';
-    }
-
     public string to_string() {
         return (new SymlinkPresenter()).present(this);
     }

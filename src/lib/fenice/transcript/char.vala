@@ -42,10 +42,6 @@ public class Tchar : Object, TranscriptEntry, Tperm, Tspecial {
     public string to_string() {
         return (new CharPresenter()).present(this);
     }
-
-    public char type_char() {
-        return 'c';
-    }
 }
 
 }

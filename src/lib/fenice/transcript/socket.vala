@@ -32,10 +32,6 @@ public class Tsocket : Object, TranscriptEntry, Tperm {
     public string to_string() {
         return (new SocketPresenter()).present(this);
     }
-
-    public char type_char() {
-        return 's';
-    }
 }
 
 }
