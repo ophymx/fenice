@@ -49,14 +49,14 @@ public class Options {
             "prints a warning to the standard error when encountering an " +
                 "object matching an exclude pattern.",
             null },
-        { "", 'W', 0, OptionArg.FILENAME_ARRAY, ref paths, null, "PATH" },
+        { "", 0, 0, OptionArg.FILENAME_ARRAY, ref paths, null, "PATH" },
         { null }
     };
 
     public static int parse(string[] args) {
         set_defaults();
         try {
-            var opt_context = new OptionContext();
+            var opt_context = new OptionContext("");
             opt_context.set_help_enabled(true);
             opt_context.add_main_entries(options, null);
             opt_context.parse(ref args);

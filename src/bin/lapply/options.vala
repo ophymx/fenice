@@ -108,7 +108,7 @@ public class Options {
     public static int parse(string[] args) {
         set_defaults();
         try {
-            var opt_context = new OptionContext();
+            var opt_context = new OptionContext("");
             opt_context.set_help_enabled(true);
             opt_context.add_main_entries(options, null);
             opt_context.parse(ref args);
