@@ -9,7 +9,13 @@ public class TranscriptFile : Object, Transcript {
     }
 
     public TranscriptIterator iterator() {
-        DataInputStream data_stream = new DataInputStream(file.read());
+        DataInputStream data_stream;
+        try {
+            data_stream = new DataInputStream(file.read());
+        } catch (Error e) {
+            stderr.printf("%s: %s\n", e.message, file.get_path());
+            Process.exit(1);
+        }
         return new TranscriptFileIterator(data_stream);
     }
 }
