@@ -2,28 +2,26 @@ namespace Fenice.Fsdiff {
 
 public class Main {
     public static int main(string[] args) {
-        Options options = new Options();
-        options.parse(args);
+        Options.parse(args);
 
-        if (args.length != 2) {
-            stderr.printf("error: wrong number of arguments (%d for 1)\n",
-                args.length - 1);
+        if (Options.path() == "") {
+            stderr.printf("error: must provide path\n");
             return 1;
         }
 
-        string path = args[1];
-
         FileStream output;
-        if (options.output_file == "-") {
-            output = (owned) stdout;
+        if (Options.output_file == "-") {
+           output = (owned) stdout;
         } else {
-            output = FileStream.open(options.output_file, "w");
+            output = FileStream.open(Options.output_file, "w");
         }
 
         Loadset loadset = new Loadset();
-        loadset.transcripts.add(new TranscriptFile(options.command_file));
+        loadset.transcripts.add(new TranscriptFile(Options.command_file));
 
-        Transcript transcript = new TranscriptDiffer(loadset, new Fswalker(path));
+        Fswalker walker = new Fswalker(Options.path());
+
+        Transcript transcript = new TranscriptDiffer(loadset, walker);
 
         foreach (var object in transcript) {
             if (object.has_changed()) {

@@ -1,101 +1,132 @@
 namespace Fenice.Lapply {
 
 public class Options {
-    public bool   percent = false;
-    public string checksum = "sha1";
-    public bool   create_missing_dirs = false;
-    public string event = "lapply";
-    public string host = "radmind";
-    public bool   line_buffer = false;
-    public bool   case_insensitive = false;
-    public bool   unset_user_flags = false;
-    public bool   no_network = false;
-    public int    port = 6222;
-    public string cert_dir = "";
-    public bool   quiet = false;
-    public bool   use_randfile_env = false;
-    public string umask = "0077";
-    public bool   print_version = false;
-    public bool   verbose = false;
-    public int    auth_level = 0;
-    public string ca_file = "/var/radmind/cert/ca.pem";
-    public string cert_file = "/var/radmind/cert/cert.pem";
-    public string key_file = "/var/radmind/cert/cert.pem";
-    public int    compression_level = 0;
+    public static bool   percent = false;
+    public static string checksum;
+    public static bool   create_missing_dirs = false;
+    public static string event;
+    public static string host;
+    public static bool   line_buffer = false;
+    public static bool   case_insensitive = false;
+    public static bool   unset_user_flags = false;
+    public static bool   no_network = false;
+    public static int    port = 6222;
+    public static string cert_dir;
+    public static bool   quiet = false;
+    public static bool   use_randfile_env = false;
+    public static string umask;
+    public static bool   print_version = false;
+    public static bool   verbose = false;
+    public static int    auth_level = 0;
+    public static string ca_file;
+    public static string cert_file;
+    public static string key_file;
+    public static int    compression_level = 0;
+    [CCode (array_length = false, array_null_terminated = true)]
+    public static static string[] transcripts;
 
-    public void parse(string[] args){
-        OptionsParser parser = new OptionsParser("");
-
-        parser.add_flag("percent", '%', ref percent,
-            "percentage done progress output.");
-
-        parser.add_option("checksum", 'c', ref checksum,
+    private const OptionEntry[] options = {
+        { "percent", '%', 0, OptionArg.NONE, ref percent,
+            "percentage done progress output.",
+            null },
+        { "checksum", 'c', 0, OptionArg.STRING, ref checksum,
             "enables checksuming.",
-            "CHECKSUM");
-
-        parser.add_flag("missing-dirs", 'C', ref create_missing_dirs,
-            "create missing intermediate directories.");
-
-        parser.add_option("event", 'e', ref event,
+            "CHECKSUM" },
+        { "missing-dirs", 'C', 0, OptionArg.NONE, ref create_missing_dirs,
+            "create missing intermediate directories.",
+            null },
+        { "event", 'e', 0, OptionArg.STRING, ref event,
             "",
-            "EVENT");
-
-        parser.add_option("host", 'h', ref host,
+            "EVENT" },
+        { "host", 'h', 0, OptionArg.STRING, ref host,
             "",
-            "HOST");
-
-        parser.add_flag("line-buffer", 'i', ref line_buffer,
-            "");
-
-        parser.add_flag("case-insensitive", 'I', ref case_insensitive,
-            "be case insensitive when compairing paths.");
-
-        parser.add_flag("without-flags", 'F', ref unset_user_flags,
-            "");
-
-        parser.add_flag("no-network", 'n', ref no_network,
-            "");
-
-        parser.add_int("port", 'p', ref port,
+            "HOST" },
+        { "line-buffer", 'i', 0, OptionArg.NONE, ref line_buffer,
             "",
-            "PORT");
-
-        parser.add_directory("certdir", 'P', ref cert_dir,
-            "");
-
-        parser.add_flag("quiet", 'q', ref quiet,
-            "");
-
-        parser.add_flag("randfile", 'r', ref use_randfile_env,
-            "");
-
-        parser.add_option("umask", 'u', ref umask,
-            "", "UMASK");
-
-        parser.add_flag("version", 'V', ref print_version,
-            "");
-
-        parser.add_flag("verbose", 'v', ref verbose,
-            "");
-
-        parser.add_int("auth-level", 'w', ref auth_level,
+            null },
+        { "case-insensitive", 'I', 0, OptionArg.NONE, ref case_insensitive,
+            "be case insensitive when compairing paths.",
+            null },
+        { "without-flags", 'F', 0, OptionArg.NONE, ref unset_user_flags,
             "",
-            "LEVEL");
-
-        parser.add_file("ca", 'x', ref ca_file,
-            "");
-
-        parser.add_file("cert", 'y',  ref cert_file,
-            "");
-
-        parser.add_file("privkey", 'z', ref key_file,
-            "");
-
-        parser.add_int("compression", 'Z', ref compression_level,
+            null },
+        { "no-network", 'n', 0, OptionArg.NONE, ref no_network,
             "",
-            "LEVEL");
+            null },
+        { "port", 'p', 0, OptionArg.INT, ref port,
+            "",
+            "PORT" },
+        { "certdir", 'P', 0, OptionArg.FILENAME, ref cert_dir,
+            "",
+            null },
+        { "quiet", 'q', 0, OptionArg.NONE, ref quiet,
+            "",
+            null },
+        { "randfile", 'r', 0, OptionArg.NONE, ref use_randfile_env,
+            "",
+            null },
+        { "umask", 'u', 0, OptionArg.STRING, ref umask, "",
+            "UMASK" },
+        { "version", 'V', 0, OptionArg.NONE, ref print_version,
+            "",
+            null },
+        { "verbose", 'v', 0, OptionArg.NONE, ref verbose,
+            "",
+            null },
+        { "auth-level", 'w', 0, OptionArg.INT, ref auth_level,
+            "",
+            "LEVEL" },
+        { "ca", 'x', 0, OptionArg.FILENAME, ref ca_file,
+            "",
+            null },
+        { "cert", 'y', 0, OptionArg.FILENAME, ref cert_file,
+            "",
+            null },
+        { "privkey", 'z', 0, OptionArg.FILENAME, ref key_file,
+            "",
+            null },
+        { "compression", 'Z', 0, OptionArg.INT, ref compression_level,
+            "",
+            "LEVEL" },
+        { "", 0, 0, OptionArg.FILENAME_ARRAY, ref transcripts,
+            null,
+            "TRANSCRIPT" },
+        { null }
+    };
 
-        parser.parse(args);
+    private static void set_defaults() {
+        checksum = "sha1";
+        event = "lapply";
+        host = "radmind";
+        cert_dir = "";
+        umask = "0077";
+        ca_file = "/var/radmind/cert/ca.pem";
+        cert_file = "/var/radmind/cert/cert.pem";
+        key_file = "/var/radmind/cert/cert.pem";
+    }
+
+    public static int parse(string[] args) {
+        set_defaults();
+        try {
+            var opt_context = new OptionContext();
+            opt_context.set_help_enabled(true);
+            opt_context.add_main_entries(options, null);
+            opt_context.parse(ref args);
+        } catch (OptionError e) {
+            stdout.printf("%s\n", e.message);
+            stdout.printf("Run '%s --help' to see a full list of available command line options.\n", args[0]);
+            return 1;
+        }
+        return 0;
+    }
+
+    public static string transcript() {
+        if (transcripts == null || transcripts.length == 0) {
+            return "";
+        } else {
+            return transcripts[0];
+        }
+
     }
 }
 
