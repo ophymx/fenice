@@ -17,7 +17,10 @@ public class Loadset : Object, Transcript {
     public Gee.Set<string> excludes() {
         Gee.HashSet<string> excludes = new Gee.HashSet<string>();
         foreach (Transcript transcript in transcripts) {
-            excludes.add_all(transcript.excludes());
+            if (transcript is Loadset) {
+                Loadset loadset = transcript as Loadset;
+                excludes.add_all(loadset.excludes());
+            }
         }
         excludes.add_all(_excludes);
         return excludes;

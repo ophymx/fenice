@@ -12,10 +12,6 @@ public class TranscriptContainer : Object, Transcript {
         this.objects = new Gee.ArrayList<TranscriptEntry>();
     }
 
-    public Gee.Set<string> excludes() {
-        return Gee.Set.empty<string>();
-    }
-
     public TranscriptIterator iterator() {
         return new TranscriptContainerIterator(objects.iterator());
     }

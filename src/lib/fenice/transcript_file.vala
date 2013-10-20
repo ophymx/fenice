@@ -8,10 +8,6 @@ public class TranscriptFile : Object, Transcript {
         this.file = File.new_for_path(filename);
     }
 
-    public Gee.Set<string> excludes() {
-        return Gee.Set.empty<string>();
-    }
-
     public TranscriptIterator iterator() {
         DataInputStream data_stream;
         try {

@@ -10,10 +10,6 @@ public class Fswalker : Object, Transcript {
         _excludes = excludes;
     }
 
-    public Gee.Set<string> excludes() {
-        return _excludes;
-    }
-
     public TranscriptIterator iterator() {
         return new FswalkerIterator(path);
     }

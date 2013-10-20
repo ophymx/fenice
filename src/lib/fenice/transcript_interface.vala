@@ -3,7 +3,6 @@ namespace Fenice {
 public interface Transcript : Object {
 
     public abstract TranscriptIterator iterator();
-    public abstract Gee.Set<string> excludes();
 }
 
 public interface TranscriptIterator : Object {

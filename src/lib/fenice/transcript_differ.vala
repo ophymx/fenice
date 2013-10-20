@@ -13,10 +13,6 @@ public class TranscriptDiffer : Object, Transcript {
         this.merge = merge;
     }
 
-    public Gee.Set<string> excludes() {
-        return Gee.Set.empty<string>();
-    }
-
     public TranscriptIterator iterator() {
         return new TranscriptDifferIterator(transcript1.iterator(),
             transcript2.iterator(), merge);
