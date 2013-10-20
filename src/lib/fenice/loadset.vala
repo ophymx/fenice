@@ -3,10 +3,15 @@ namespace Fenice {
 public class Loadset : Object, Transcript {
 
     public Gee.ArrayList<Transcript> transcripts;
+    private Gee.HashSet<string> _excludes = new Gee.HashSet<string>();
 
     public Loadset(Gee.ArrayList<Transcript> transcripts =
         new Gee.ArrayList<Transcript>()) {
         this.transcripts = transcripts;
+    }
+
+    public void add_exclude(string pattern) {
+        _excludes.add(pattern);
     }
 
     public Gee.Set<string> excludes() {
@@ -14,6 +19,7 @@ public class Loadset : Object, Transcript {
         foreach (Transcript transcript in transcripts) {
             excludes.add_all(transcript.excludes());
         }
+        excludes.add_all(_excludes);
         return excludes;
     }
 
