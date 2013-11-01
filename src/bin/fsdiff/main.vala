@@ -16,8 +16,11 @@ public class Main {
             output = FileStream.open(Options.output_file, "w");
         }
 
-        Loadset loadset = new Loadset();
-        loadset.transcripts.add(new TranscriptFile(Options.command_file));
+        string loadset_filename = Path.get_basename(Options.command_file);
+        string base_dir = Path.get_dirname(Options.command_file);
+
+        LoadsetFile loadset_file = new LoadsetFile(loadset_filename, base_dir);
+        Loadset loadset = loadset_file.loadset();
 
         Fswalker walker = new Fswalker(Options.path(), loadset.excludes());
         Transcript transcript = new TranscriptDiffer(loadset, walker);
