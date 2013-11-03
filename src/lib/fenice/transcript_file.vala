@@ -1,5 +1,9 @@
 namespace Fenice {
 
+public errordomain TranscriptEntryParserError {
+    UNKNOWN_TYPE
+}
+
 public class TranscriptFile : Object, Transcript {
 
     private string filename;
@@ -11,74 +15,73 @@ public class TranscriptFile : Object, Transcript {
     }
 
     public TranscriptIterator iterator() {
-        DataInputStream data_stream;
-        try {
-            string path = Path.build_filename(base_dir, filename);
-            File file = File.new_for_path(path);
-            data_stream = new DataInputStream(file.read());
-        } catch (Error e) {
-            stderr.printf("%s: %s\n", e.message, filename);
-            Process.exit(1);
-        }
-        return new TranscriptFileIterator(data_stream);
+        WSVFile wsv_file = new WSVFile(base_dir, filename);
+        return new TranscriptFileIterator(filename, wsv_file.iterator());
     }
 }
 
 public class TranscriptFileIterator : Object, TranscriptIterator {
 
-    private DataInputStream data_stream;
+    private WSVFileIterator file_iter;
+    private string filename;
 
-    private TranscriptEntry current;
-    private TranscriptEntry next_object;
-
-    private TranscriptEntryParser parser = new TranscriptEntryParser();
-
-    public TranscriptFileIterator(DataInputStream data_stream) {
-        this.data_stream = data_stream;
+    public TranscriptFileIterator(string filename, WSVFileIterator file_iter) {
+        this.file_iter = file_iter;
+        this.filename = filename;
     }
 
     public bool next() {
-        current = next_object;
-        size_t size;
-        string line;
-
-        try {
-            line = data_stream.read_line_utf8(out size);
-            if (line != null) {
-                next_object = parser.parse(line);
-            } else {
-                next_object = null;
-            }
-        } catch (Error e) {
-            stderr.printf("%s\n", e.message);
-            return false;
-        }
-
-        if (current == null) {
-            if (next_object == null)
-                return false;
-            else
-                return next();
-        } else {
-            return true;
-        }
+        return file_iter.next();
     }
 
     public bool has_next() {
-        return next_object != null;
+        return file_iter.has_next();
     }
 
     public bool first() {
-        if (data_stream.seek(0, SeekType.SET)) {
-            current = null;
-            next_object = null;
-            return next();
-        }
-        return false;
+        return file_iter.first();
     }
 
     public new TranscriptEntry get() {
-        return current;
+        return parse(file_iter.get());
+    }
+
+    private TranscriptEntry parse(WSVFile.Entry entry)
+        throws TranscriptEntryParserError {
+        ChangeType change_type = ChangeType.UNCHANGED;
+
+        string type = entry.args[0];
+
+        switch (type) {
+            case "b":
+                return (new BlockParser()).parse(entry.args, change_type);
+
+            case "c":
+                return (new CharParser()).parse(entry.args, change_type);
+
+            case "d":
+                return (new DirParser()).parse(entry.args, change_type);
+
+            case "f":
+                return (new FileParser()).parse(entry.args, change_type);
+
+            case "h":
+                return (new LinkParser()).parse(entry.args, change_type);
+
+            case "l":
+                return (new SymlinkParser()).parse(entry.args, change_type);
+
+            case "p":
+                return (new PipeParser()).parse(entry.args, change_type);
+
+            case "s":
+                return (new SocketParser()).parse(entry.args, change_type);
+
+            default:
+                throw new TranscriptEntryParserError.UNKNOWN_TYPE(
+                    "%s:%d: unknown transcript entry type '%s'", filename,
+                    entry.line_number, type);
+        }
     }
 }
 

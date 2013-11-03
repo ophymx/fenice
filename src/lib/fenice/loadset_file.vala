@@ -17,7 +17,7 @@ public class LoadsetFile : Object {
 
     public Loadset loadset() throws LoadsetFileParseError {
         Loadset loadset = new Loadset();
-        WSVFile wsv_file = new WSVFile(Path.build_filename(base_dir, filename));
+        WSVFile wsv_file = new WSVFile(base_dir, filename);
 
         foreach (var entry in wsv_file) {
             if (entry.comment || entry.blank)

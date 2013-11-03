@@ -2,27 +2,8 @@ namespace Fenice {
 
 public class WSVFile : Object {
 
-    private File file;
-
-    public WSVFile(string filename) {
-        this.file = File.new_for_path(filename);
-    }
-
-    public WSVFileIterator iterator() {
-        DataInputStream data_stream;
-        try {
-            data_stream = new DataInputStream(file.read());
-        } catch (Error e) {
-            stderr.printf("%s: %s\n", e.message, file.get_path());
-            Process.exit(1);
-        }
-        return new WSVFileIterator(data_stream);
-    }
-}
-
-public class WSVFileIterator : Object {
-
-    private DataInputStream data_stream;
+    private string filename;
+    private string base_dir;
 
     public struct Entry {
         public bool blank;
@@ -40,8 +21,31 @@ public class WSVFileIterator : Object {
         }
     }
 
-    private Entry? current_entry;
-    private Entry? next_entry;
+    public WSVFile(string base_dir, string filename) {
+        this.base_dir = base_dir;
+        this.filename = filename;
+    }
+
+    public WSVFileIterator iterator() {
+        DataInputStream data_stream;
+        string path = Path.build_filename(base_dir, filename);
+        try {
+            File file = File.new_for_path(path);
+            data_stream = new DataInputStream(file.read());
+        } catch (Error e) {
+            stderr.printf("%s: %s\n", e.message, path);
+            Process.exit(1);
+        }
+        return new WSVFileIterator(data_stream);
+    }
+}
+
+public class WSVFileIterator : Object {
+
+    private DataInputStream data_stream;
+
+    private WSVFile.Entry? current_entry;
+    private WSVFile.Entry? next_entry;
     private int line_number = 0;
 
     public WSVFileIterator(DataInputStream data_stream) {
@@ -73,7 +77,10 @@ public class WSVFileIterator : Object {
             else
                 return next();
         } else {
-            return true;
+            if (current_entry.blank || current_entry.comment)
+                return next();
+            else
+                return true;
         }
     }
 
@@ -90,14 +97,14 @@ public class WSVFileIterator : Object {
         return false;
     }
 
-    public new Entry get() {
+    public new WSVFile.Entry get() {
         return current_entry;
     }
 
-    private Entry parse(string line) {
+    private WSVFile.Entry parse(string line) {
         string[] args = Regex.split_simple("[ \t]+", line);
         int start_arg = 0;
-        Entry entry = Entry();
+        WSVFile.Entry entry = WSVFile.Entry();
         entry.line_number = line_number;
 
         if (args.length == 0) {
