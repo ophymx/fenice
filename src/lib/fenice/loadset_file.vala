@@ -52,7 +52,9 @@ public class LoadsetFile : Object {
                     break;
 
                 default:
-                    throw new LoadsetFileParseError.UNKNOWN_TYPE("");
+                    throw new LoadsetFileParseError.UNKNOWN_TYPE(
+                        "%s:%d: unknown loadset entry type '%s'", filename,
+                        entry.line_number, type);
                     break;
             }
         }

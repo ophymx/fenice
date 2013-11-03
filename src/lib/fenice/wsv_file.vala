@@ -29,17 +29,20 @@ public class WSVFileIterator : Object {
         public bool minus;
         public bool comment;
         public string[] args;
+        public int line_number;
 
         public Entry() {
             blank = false;
             minus = false;
             comment = false;
             args = new string[0];
+            line_number = 0;
         }
     }
 
     private Entry? current_entry;
     private Entry? next_entry;
+    private int line_number = 0;
 
     public WSVFileIterator(DataInputStream data_stream) {
         this.data_stream = data_stream;
@@ -49,6 +52,8 @@ public class WSVFileIterator : Object {
         current_entry = next_entry;
         size_t size;
         string line;
+
+        line_number++;
 
         try {
             line = data_stream.read_line_utf8(out size);
@@ -93,6 +98,7 @@ public class WSVFileIterator : Object {
         string[] args = Regex.split_simple("[ \t]+", line);
         int start_arg = 0;
         Entry entry = Entry();
+        entry.line_number = line_number;
 
         if (args.length == 0) {
             entry.blank = true;
