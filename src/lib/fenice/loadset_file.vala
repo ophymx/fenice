@@ -27,27 +27,27 @@ public class LoadsetFile : Object {
                 throw new LoadsetFileParseError.INVALID_ARGUMENTS("");
             }
 
-            switch (entry.args[0]) {
+            string type = entry.args[0];
+            string path = entry.args[1];
+
+            switch (type) {
                 case "x":
-                    loadset.add_exclude(entry.args[1]);
+                    loadset.add_exclude(path);
                     break;
 
                 case "s":
-                    loadset.add_special(entry.args[1]);
+                    loadset.add_special(path);
                     break;
 
                 case "p":
-                    loadset.transcripts.add(new TranscriptFile(
-                            Path.build_filename(base_dir, entry.args[1])
-                        ));
+                    loadset.transcripts.add(new TranscriptFile(path, base_dir));
                     break;
 
                 case "n":
                     break;
 
                 case "k":
-                    LoadsetFile loadset_file = new LoadsetFile(entry.args[1],
-                        base_dir);
+                    LoadsetFile loadset_file = new LoadsetFile(path, base_dir);
                     loadset.transcripts.add(loadset_file.loadset());
                     break;
 

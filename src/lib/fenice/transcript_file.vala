@@ -2,18 +2,22 @@ namespace Fenice {
 
 public class TranscriptFile : Object, Transcript {
 
-    private File file;
+    private string filename;
+    private string base_dir;
 
-    public TranscriptFile(string filename) {
-        this.file = File.new_for_path(filename);
+    public TranscriptFile(string filename, string base_dir) {
+        this.filename = filename;
+        this.base_dir = base_dir;
     }
 
     public TranscriptIterator iterator() {
         DataInputStream data_stream;
         try {
+            string path = Path.build_filename(base_dir, filename);
+            File file = File.new_for_path(path);
             data_stream = new DataInputStream(file.read());
         } catch (Error e) {
-            stderr.printf("%s: %s\n", e.message, file.get_path());
+            stderr.printf("%s: %s\n", e.message, filename);
             Process.exit(1);
         }
         return new TranscriptFileIterator(data_stream);

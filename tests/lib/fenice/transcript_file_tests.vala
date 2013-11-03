@@ -3,18 +3,11 @@ public class TranscriptFileTests : TranscriptTests {
 
     public TranscriptFileTests() {
         base("TranscriptFile");
-        add_test("[TranscriptFile] simple transcript file", test_simple_file);
-    }
-
-    public override void set_up() {
-        test_transcript = new TranscriptFile(ASSETS_DIR + "/test.T");
-    }
-
-    public override void tear_down() {
-        test_transcript = null;
+        add_test(".iterator() simple transcript file", test_simple_file);
     }
 
     public void test_simple_file() {
+        var test_transcript = new TranscriptFile("test.T", ASSETS_DIR);
         var iter = test_transcript.iterator();
 
         assert(iter.next());
