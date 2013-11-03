@@ -3,11 +3,11 @@ public class TranscriptDifferTests : TranscriptTests {
 
     public TranscriptDifferTests() {
         base("TranscriptDiffer");
-        add_test("[TranscriptDiffer] merges simple sorted transcripts",
+        add_test(".iterator() merges simple sorted transcripts",
             test_merge_sorted);
-        add_test("[TranscriptDiffer] detects removed objects",
+        add_test(".iterator() detects removed objects",
             test_removed_file);
-        add_test("[TranscriptDiffer] detects unchanged objects",
+        add_test(".iterator() detects unchanged objects",
             test_unchanged_file);
     }
 

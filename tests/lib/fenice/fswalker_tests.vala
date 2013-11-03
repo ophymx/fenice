@@ -3,17 +3,17 @@ public class FswalkerTests : TranscriptTests {
 
     public FswalkerTests() {
         base("Fswalker");
-        add_test("[Fswalker] identifies dev null as a char device",
+        add_test(".iterator() identifies dev null as a char device",
             test_dev_null);
-        add_test("[Fswalker] identifies dev loop0 as a block device",
+        add_test(".iterator() identifies dev loop0 as a block device",
             test_dev_loop0);
-        add_test("[Fswalker] identifies dev log as a socket",
+        add_test(".iterator() identifies dev log as a socket",
             test_dev_log);
-        add_test("[Fswalker] identifies named pipe files",
+        add_test(".iterator() identifies named pipe files",
             test_named_pipe);
-        add_test("[Fswalker] identifies regular files",
+        add_test(".iterator() identifies regular files",
             test_regular_file);
-        add_test("[Fswalker] identifies directories",
+        add_test(".iterator() identifies directories",
             test_directory);
     }
 
