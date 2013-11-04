@@ -44,8 +44,7 @@ public class WSVFileIterator : Object {
 
     private DataInputStream data_stream;
 
-    private WSVFile.Entry? current_entry;
-    private WSVFile.Entry? next_entry;
+    private WSVFile.Entry? current;
     private int line_number = 0;
 
     public WSVFileIterator(DataInputStream data_stream) {
@@ -53,44 +52,36 @@ public class WSVFileIterator : Object {
     }
 
     public bool next() {
-        current_entry = next_entry;
-        size_t size;
-        string line;
-
-        line_number++;
-
         try {
-            line = data_stream.read_line_utf8(out size);
+            size_t size;
+            string line = data_stream.read_line_utf8(out size);
             if (line != null) {
-                next_entry = parse(line);
+                line_number++;
+                current = parse(line);
             } else {
-                next_entry = null;
+                current = null;
             }
         } catch (Error e) {
             stderr.printf("%s\n", e.message);
             return false;
         }
 
-        if (current_entry == null) {
-            if (next_entry == null)
-                return false;
-            else
-                return next();
-        } else {
-            if (current_entry.blank || current_entry.comment)
-                return next();
-            else
-                return true;
-        }
+        if (current == null)
+            return false;
+
+        if (current.blank || current.comment)
+            return next();
+
+        return true;
     }
 
     public new WSVFile.Entry get() {
-        return current_entry;
+        return current;
     }
 
     private WSVFile.Entry parse(string line) {
         string[] args = Regex.split_simple("[ \t]+", line);
-        int start_arg = 0;
+        int start = 0;
         WSVFile.Entry entry = WSVFile.Entry();
         entry.line_number = line_number;
 
@@ -106,11 +97,11 @@ public class WSVFileIterator : Object {
 
         if (args[0] == "-") {
             entry.minus = true;
-            start_arg = 1;
+            start = 1;
         }
 
-        if (args.length > start_arg) {
-            entry.args = args[(start_arg):(args.length)];
+        if (args.length > start) {
+            entry.args = args[start:args.length];
         }
 
         return entry;
