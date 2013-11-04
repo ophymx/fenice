@@ -37,8 +37,12 @@ public class TranscriptDifferIterator : Object, TranscriptIterator {
     }
 
     public bool next() {
-        if (!started)
-            return first();
+        if (!started) {
+            iterator1_next = iterator1.next();
+            iterator2_next = iterator2.next();
+            started = true;
+            return iterator1_next || iterator2_next;
+        }
 
         int compare = compare_paths();
         if (compare == 0) {
@@ -50,17 +54,6 @@ public class TranscriptDifferIterator : Object, TranscriptIterator {
             iterator2_next = iterator2.next();
         }
 
-        return iterator1_next || iterator2_next;
-    }
-
-    public bool has_next() {
-        return iterator1.has_next() || iterator2.has_next();
-    }
-
-    public bool first() {
-        iterator1_next = iterator1.first();
-        iterator2_next = iterator2.first();
-        started = true;
         return iterator1_next || iterator2_next;
     }
 

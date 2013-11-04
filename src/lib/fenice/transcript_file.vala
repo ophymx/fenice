@@ -34,14 +34,6 @@ public class TranscriptFileIterator : Object, TranscriptIterator {
         return file_iter.next();
     }
 
-    public bool has_next() {
-        return file_iter.has_next();
-    }
-
-    public bool first() {
-        return file_iter.first();
-    }
-
     public new TranscriptEntry get() {
         return parse(file_iter.get());
     }

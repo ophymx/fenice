@@ -84,19 +84,6 @@ public class WSVFileIterator : Object {
         }
     }
 
-    public bool has_next() {
-        return next_entry != null;
-    }
-
-    public bool first() {
-        if (data_stream.seek(0, SeekType.SET)) {
-            current_entry = null;
-            next_entry = null;
-            return next();
-        }
-        return false;
-    }
-
     public new WSVFile.Entry get() {
         return current_entry;
     }

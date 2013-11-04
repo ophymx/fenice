@@ -51,21 +51,6 @@ public class FswalkerIterator : Object, TranscriptIterator {
         return true;
     }
 
-    public bool has_next() {
-        foreach (var iter in directory_iterators) {
-            if (iter.has_next())
-                return true;
-        }
-        return false;
-    }
-
-    public bool first() {
-        inodes.clear();
-        directory_iterators.clear();
-        current = null;
-        return next();
-    }
-
     public new TranscriptEntry get() {
         return current;
     }

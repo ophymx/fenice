@@ -25,16 +25,8 @@ public class TranscriptContainerIterator : Object, TranscriptIterator {
         this.iterator = iterator;
     }
 
-    public bool first() {
-        return iterator.first();
-    }
-
     public bool next() {
         return iterator.next();
-    }
-
-    public bool has_next() {
-        return iterator.has_next();
     }
 
     public new TranscriptEntry get() {

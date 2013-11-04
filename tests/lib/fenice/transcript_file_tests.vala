@@ -60,6 +60,6 @@ public class TranscriptFileTests : TranscriptTests {
             )
         ));
 
-        assert(!iter.has_next());
+        assert(!iter.next());
     }
 }
