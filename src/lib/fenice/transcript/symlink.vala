@@ -18,6 +18,10 @@ public class Tsymlink : Object, TranscriptEntry, Tperm {
 
     public target_t target { get; private set; }
 
+    public TranscriptEntryType entry_type() {
+        return TranscriptEntryType.SYMLINK;
+    }
+
     public Tsymlink(path_t path, mode_t mode, uid_t uid, gid_t gid,
         target_t target, ChangeType change_type = ChangeType.DEFAULT) {
         _path = path;

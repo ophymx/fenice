@@ -9,6 +9,10 @@ public class Tlink : Object, TranscriptEntry {
 
     public ChangeType change_type { get; set; }
 
+    public TranscriptEntryType entry_type() {
+        return TranscriptEntryType.LINK;
+    }
+
     public Tlink(path_t path, target_t target,
         ChangeType change_type = ChangeType.DEFAULT) {
         _path = path;

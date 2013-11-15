@@ -44,6 +44,8 @@ public class LoadsetFile : Object {
                     break;
 
                 case "n":
+                    Transcript transcript = new TranscriptFile(path, base_dir);
+                    loadset.transcripts.add(new NegativeTranscript(transcript));
                     break;
 
                 case "k":
@@ -55,7 +57,6 @@ public class LoadsetFile : Object {
                     throw new LoadsetFileParseError.UNKNOWN_TYPE(
                         "%s:%d: unknown loadset entry type '%s'", filename,
                         entry.line_number, type);
-                    break;
             }
         }
 

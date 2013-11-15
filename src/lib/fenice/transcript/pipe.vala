@@ -16,6 +16,10 @@ public class Tpipe : Object, TranscriptEntry, Tperm {
 
     public ChangeType change_type { get; set; }
 
+    public TranscriptEntryType entry_type() {
+        return TranscriptEntryType.PIPE;
+    }
+
     public Tpipe(path_t path, mode_t mode, uid_t uid, gid_t gid,
         ChangeType change_type = ChangeType.DEFAULT) {
         _path = path;

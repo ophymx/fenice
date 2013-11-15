@@ -25,6 +25,10 @@ public class Tfile : Object, TranscriptEntry, Tperm {
 
     public ChangeType change_type { get; set; }
 
+    public TranscriptEntryType entry_type() {
+        return TranscriptEntryType.FILE;
+    }
+
     public Tfile(path_t path, mode_t mode, uid_t uid, gid_t gid, mtime_t mtime,
         fsize_t size, checksum_t checksum,
         ChangeType change_type = ChangeType.DEFAULT) {

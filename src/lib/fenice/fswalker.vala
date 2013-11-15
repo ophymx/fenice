@@ -35,8 +35,11 @@ public class FswalkerIterator : Object, TranscriptIterator {
 
     public bool next() {
         if (current != null) {
-            if (current is Tdir)
-                push_directory();
+            if (current is Tdir) {
+                if ((current as Tdir).check) {
+                    push_directory();
+                }
+            }
 
             if (directory_iterators.is_empty)
                 return false;

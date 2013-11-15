@@ -10,6 +10,8 @@ public interface TranscriptEntry : Object {
 
     public abstract string to_string();
 
+    public abstract TranscriptEntryType entry_type();
+
     public bool has_changed() {
         return change_type != ChangeType.UNCHANGED;
     }
