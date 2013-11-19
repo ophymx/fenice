@@ -32,10 +32,6 @@ public class Tsymlink : Object, TranscriptEntry, Tperm {
         this.change_type = change_type;
     }
 
-    public string to_string() {
-        return (new SymlinkPresenter()).present(this);
-    }
-
     public bool equal(TranscriptEntry other) {
         return object_equal(other) &&
             perm_equal(other as Tperm) &&

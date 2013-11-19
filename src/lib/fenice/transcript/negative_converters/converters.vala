@@ -5,36 +5,22 @@ public interface TranscriptEntryConverter : Object {
 }
 
 public class NegativeConverter : Object, TranscriptEntryConverter {
+    private Gee.Map<TranscriptEntryType,TranscriptEntryConverter> converters =
+        new Gee.HashMap<TranscriptEntryType,TranscriptEntryConverter>();
+
+    public NegativeConverter() {
+        converters[TranscriptEntryType.BLOCK] = new BlockConverter();
+        converters[TranscriptEntryType.CHAR] = new CharConverter();
+        converters[TranscriptEntryType.DIR] = new DirConverter();
+        converters[TranscriptEntryType.FILE] = new FileConverter();
+        converters[TranscriptEntryType.LINK] = new LinkConverter();
+        converters[TranscriptEntryType.SYMLINK] = new SymlinkConverter();
+        converters[TranscriptEntryType.PIPE] = new PipeConverter();
+        converters[TranscriptEntryType.SOCKET] = new SocketConverter();
+    }
 
     public TranscriptEntry convert(TranscriptEntry entry) {
-        switch (entry.entry_type()) {
-            case TranscriptEntryType.BLOCK:
-                return (new BlockConverter()).convert(entry);
-
-            case TranscriptEntryType.CHAR:
-                return (new CharConverter()).convert(entry);
-
-            case TranscriptEntryType.DIR:
-                return (new DirConverter()).convert(entry);
-
-            case TranscriptEntryType.FILE:
-                return (new FileConverter()).convert(entry);
-
-            case TranscriptEntryType.LINK:
-                return (new LinkConverter()).convert(entry);
-
-            case TranscriptEntryType.SYMLINK:
-                return (new SymlinkConverter()).convert(entry);
-
-            case TranscriptEntryType.PIPE:
-                return (new PipeConverter()).convert(entry);
-
-            case TranscriptEntryType.SOCKET:
-                return (new SocketConverter()).convert(entry);
-
-            default:
-                assert_not_reached();
-        }
+        return converters[entry.entry_type()].convert(entry);
     }
 
     private class BlockConverter : Object, TranscriptEntryConverter {

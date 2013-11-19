@@ -25,9 +25,11 @@ public class Main {
         Fswalker walker = new Fswalker(Options.path(), loadset.excludes());
         Transcript transcript = new TranscriptDiffer(loadset, walker);
 
-        foreach (var object in transcript) {
-            if (object.has_changed()) {
-                output.printf("%s\n", object.to_string());
+        var presenter = new CreatableTranscriptPresenter();
+
+        foreach (var entry in transcript) {
+            if (entry.has_changed()) {
+                output.printf("%s\n", presenter.present(entry));
             }
         }
 

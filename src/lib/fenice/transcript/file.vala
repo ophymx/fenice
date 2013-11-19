@@ -48,10 +48,6 @@ public class Tfile : Object, TranscriptEntry, Tperm {
             size.equal((other as Tfile).size) &&
             checksum.equal((other as Tfile).checksum);
     }
-
-    public string to_string() {
-        return (new FilePresenter()).present(this);
-    }
 }
 
 }

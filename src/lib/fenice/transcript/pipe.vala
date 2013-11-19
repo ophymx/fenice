@@ -32,10 +32,6 @@ public class Tpipe : Object, TranscriptEntry, Tperm {
     public bool equal(TranscriptEntry other) {
         return object_equal(other) && perm_equal(other as Tperm);
     }
-
-    public string to_string() {
-        return (new PipePresenter()).present(this);
-    }
 }
 
 }

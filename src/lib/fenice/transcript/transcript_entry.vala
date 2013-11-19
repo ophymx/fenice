@@ -8,8 +8,6 @@ public interface TranscriptEntry : Object {
 
     public abstract bool equal(TranscriptEntry other);
 
-    public abstract string to_string();
-
     public abstract TranscriptEntryType entry_type();
 
     public bool has_changed() {
