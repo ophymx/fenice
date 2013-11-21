@@ -16,10 +16,7 @@ public class Main {
             output = FileStream.open(Options.output_file, "w");
         }
 
-        string loadset_filename = Path.get_basename(Options.command_file);
-        string base_dir = Path.get_dirname(Options.command_file);
-
-        LoadsetFile loadset_file = new LoadsetFile(loadset_filename, base_dir);
+        var loadset_file = new LoadsetFile.from_path(Options.command_file);
         Loadset loadset = loadset_file.loadset();
 
         Fswalker walker = new Fswalker(Options.path(), loadset.excludes());

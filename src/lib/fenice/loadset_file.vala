@@ -15,6 +15,11 @@ public class LoadsetFile : Object {
         this.base_dir = base_dir;
     }
 
+    public LoadsetFile.from_path(string path) {
+        this.base_dir = Path.get_dirname(path);
+        this.filename = Path.get_basename(path);
+    }
+
     public Loadset loadset() throws LoadsetFileParseError {
         Loadset loadset = new Loadset();
         WSVFile wsv_file = new WSVFile(base_dir, filename);
