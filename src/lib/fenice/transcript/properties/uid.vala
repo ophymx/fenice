@@ -25,7 +25,7 @@ public struct uid_t {
     }
 
     public string to_string() {
-        StringBuilder builder = new StringBuilder();
+        var builder = new StringBuilder();
         if (!check)
             builder.append("-");
         builder.append_printf("%u", (uint) uid);

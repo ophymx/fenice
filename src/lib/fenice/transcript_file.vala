@@ -15,7 +15,7 @@ public class TranscriptFile : Object, Transcript {
     }
 
     public TranscriptIterator iterator() {
-        WSVFile wsv_file = new WSVFile(base_dir, filename);
+        var wsv_file = new WSVFile(base_dir, filename);
         return new TranscriptFileIterator(filename, wsv_file.iterator());
     }
 }
@@ -40,9 +40,9 @@ public class TranscriptFileIterator : Object, TranscriptIterator {
 
     private TranscriptEntry parse(WSVFile.Entry entry)
         throws TranscriptEntryParserError {
-        ChangeType change_type = ChangeType.UNCHANGED;
+        var change_type = ChangeType.UNCHANGED;
 
-        string type = entry.args[0];
+        var type = entry.args[0];
 
         switch (type) {
             case "b":

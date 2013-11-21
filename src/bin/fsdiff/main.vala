@@ -17,10 +17,10 @@ public class Main {
         }
 
         var loadset_file = new LoadsetFile.from_path(Options.command_file);
-        Loadset loadset = loadset_file.loadset();
+        var loadset = loadset_file.loadset();
 
-        Fswalker walker = new Fswalker(Options.path(), loadset.excludes());
-        Transcript transcript = new TranscriptDiffer(loadset, walker);
+        var walker = new Fswalker(Options.path(), loadset.excludes());
+        var transcript = new TranscriptDiffer(loadset, walker);
 
         var presenter = new CreatableTranscriptPresenter();
 

@@ -25,7 +25,7 @@ public struct gid_t {
     }
 
     public string to_string() {
-        StringBuilder builder = new StringBuilder();
+        var builder = new StringBuilder();
         if (!check)
             builder.append_c('-');
         builder.append(gid.to_string());

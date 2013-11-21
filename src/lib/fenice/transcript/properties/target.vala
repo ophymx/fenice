@@ -11,7 +11,7 @@ public struct target_t {
     }
 
     public target_t.from_symlink(string symlink, bool check=true) {
-        string target = "";
+        var target = "";
         try {
             target = FileUtils.read_link(symlink);
         } catch(FileError e) {
@@ -40,7 +40,7 @@ public struct target_t {
     }
 
     public string to_string() {
-        StringBuilder builder = new StringBuilder();
+        var builder = new StringBuilder();
         if (!check)
             builder.append_c('-');
         builder.append(target.to_string());

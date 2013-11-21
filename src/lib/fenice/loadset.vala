@@ -20,10 +20,10 @@ public class Loadset : Object, Transcript {
     }
 
     public Gee.Set<string> excludes() {
-        Gee.HashSet<string> excludes = new Gee.HashSet<string>();
-        foreach (Transcript transcript in transcripts) {
+        var excludes = new Gee.HashSet<string>();
+        foreach (var transcript in transcripts) {
             if (transcript is Loadset) {
-                Loadset loadset = transcript as Loadset;
+                var loadset = transcript as Loadset;
                 excludes.add_all(loadset.excludes());
             }
         }
@@ -32,10 +32,10 @@ public class Loadset : Object, Transcript {
     }
 
     public Gee.Set<string> specials() {
-        Gee.HashSet<string> specials = new Gee.HashSet<string>();
-        foreach (Transcript transcript in transcripts) {
+        var specials = new Gee.HashSet<string>();
+        foreach (var transcript in transcripts) {
             if (transcript is Loadset) {
-                Loadset loadset = transcript as Loadset;
+                var loadset = transcript as Loadset;
                 specials.add_all(loadset.specials());
             }
         }
@@ -45,7 +45,7 @@ public class Loadset : Object, Transcript {
 
     public TranscriptIterator iterator() {
         Transcript previous = new TranscriptContainer.empty();
-        foreach (Transcript transcript in transcripts) {
+        foreach (var transcript in transcripts) {
             previous = new TranscriptDiffer(previous, transcript, true);
         }
         return previous.iterator();

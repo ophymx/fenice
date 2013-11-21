@@ -5,7 +5,7 @@ public struct checksum_t {
     public bool check;
     public GLib.ChecksumType checksum_type;
 
-    private const uint BUFFER_SIZE = 524288;
+    private const size_t BUFFER_SIZE = 524288;
 
     public checksum_t(string checksum, bool check = true,
         GLib.ChecksumType checksum_type = GLib.ChecksumType.SHA1) {
@@ -19,14 +19,13 @@ public struct checksum_t {
         this.check = check;
         this.checksum_type = checksum_type;
 
-        GLib.Checksum digester = new GLib.Checksum(checksum_type);
-        uchar[] buffer = new uchar[BUFFER_SIZE];
-        size_t buf_len = BUFFER_SIZE;
+        var digester = new GLib.Checksum(checksum_type);
+        var buffer = new uchar[BUFFER_SIZE];
+        var buf_len = BUFFER_SIZE;
 
         try {
-            GLib.File file = GLib.File.new_for_path(filename);
-            FileInputStream stream = file.read();
-            //FileStream stream = FileStream.open (filename, "rb");
+            var file = GLib.File.new_for_path(filename);
+            var stream = file.read();
             ssize_t read_len = 0;
             while ((read_len = stream.read(buffer)) > 0) {
                 digester.update(buffer, (size_t) read_len);
@@ -54,7 +53,7 @@ public struct checksum_t {
     }
 
     public string to_string() {
-        StringBuilder builder = new StringBuilder();
+        var builder = new StringBuilder();
         if (!check)
             builder.append_c('-');
         builder.append(checksum);

@@ -38,7 +38,7 @@ public struct mode_t {
     }
 
     public string to_string() {
-        StringBuilder builder = new StringBuilder();
+        var builder = new StringBuilder();
         builder.append_printf("%04o", mode);
         if (mask != PERM_MASK)
             builder.append_printf("-%04o", mask ^ PERM_MASK);

@@ -21,8 +21,8 @@ public class LoadsetFile : Object {
     }
 
     public Loadset loadset() throws LoadsetFileParseError {
-        Loadset loadset = new Loadset();
-        WSVFile wsv_file = new WSVFile(base_dir, filename);
+        var loadset = new Loadset();
+        var wsv_file = new WSVFile(base_dir, filename);
 
         foreach (var entry in wsv_file) {
             if (entry.comment || entry.blank)
@@ -32,8 +32,8 @@ public class LoadsetFile : Object {
                 throw new LoadsetFileParseError.INVALID_ARGUMENTS("");
             }
 
-            string type = entry.args[0];
-            string path = entry.args[1];
+            var type = entry.args[0];
+            var path = entry.args[1];
 
             switch (type) {
                 case "x":
@@ -49,12 +49,12 @@ public class LoadsetFile : Object {
                     break;
 
                 case "n":
-                    Transcript transcript = new TranscriptFile(path, base_dir);
+                    var transcript = new TranscriptFile(path, base_dir);
                     loadset.transcripts.add(new NegativeTranscript(transcript));
                     break;
 
                 case "k":
-                    LoadsetFile loadset_file = new LoadsetFile(path, base_dir);
+                    var loadset_file = new LoadsetFile(path, base_dir);
                     loadset.transcripts.add(loadset_file.loadset());
                     break;
 

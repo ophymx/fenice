@@ -65,7 +65,7 @@ public class FswalkerIterator : Object, TranscriptIterator {
     }
 
     private string current_path() {
-        StringBuilder builder = new StringBuilder();
+        var builder = new StringBuilder();
         foreach (var iter in directory_iterators) {
             if (builder.len != 0)
                 builder.prepend_c(Path.DIR_SEPARATOR);

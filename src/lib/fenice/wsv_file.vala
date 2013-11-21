@@ -12,12 +12,12 @@ public class WSVFile : Object {
         public string[] args;
         public int line_number;
 
-        public Entry() {
+        public Entry(int line_number) {
             blank = false;
             minus = false;
             comment = false;
             args = new string[0];
-            line_number = 0;
+            this.line_number = line_number;
         }
     }
 
@@ -28,9 +28,9 @@ public class WSVFile : Object {
 
     public WSVFileIterator iterator() {
         DataInputStream data_stream;
-        string path = Path.build_filename(base_dir, filename);
+        var path = Path.build_filename(base_dir, filename);
         try {
-            File file = File.new_for_path(path);
+            var file = File.new_for_path(path);
             data_stream = new DataInputStream(file.read());
         } catch (Error e) {
             stderr.printf("%s: %s\n", e.message, path);
@@ -54,7 +54,7 @@ public class WSVFileIterator : Object {
     public bool next() {
         try {
             size_t size;
-            string line = data_stream.read_line_utf8(out size);
+            var line = data_stream.read_line_utf8(out size);
             if (line != null) {
                 line_number++;
                 current = parse(line);
@@ -80,10 +80,9 @@ public class WSVFileIterator : Object {
     }
 
     private WSVFile.Entry parse(string line) {
-        string[] args = Regex.split_simple("[ \t]+", line);
+        var args = Regex.split_simple("[ \t]+", line);
         int start = 0;
-        WSVFile.Entry entry = WSVFile.Entry();
-        entry.line_number = line_number;
+        var entry = WSVFile.Entry(line_number);
 
         if (args.length == 0) {
             entry.blank = true;

@@ -36,7 +36,7 @@ public class TranscriptDifferIterator : Object, TranscriptIterator {
     }
 
     public bool next() {
-        int compare = compare_paths();
+        var compare = compare_paths();
         if (compare == 0) {
             left_has_cur = left.next();
             right_has_cur = right.next();
