@@ -10,6 +10,10 @@ public interface TranscriptEntry : Object {
 
     public abstract TranscriptEntryType entry_type();
 
+    public virtual bool recurse() {
+        return false;
+    }
+
     public bool has_changed() {
         return change_type != ChangeType.UNCHANGED;
     }

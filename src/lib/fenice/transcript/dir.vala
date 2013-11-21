@@ -18,6 +18,10 @@ public class Tdir : Object, TranscriptEntry, Tperm {
 
     public ChangeType change_type { get; set; }
 
+    public bool recurse() {
+        return check;
+    }
+
     public TranscriptEntryType entry_type() {
         return TranscriptEntryType.DIR;
     }
