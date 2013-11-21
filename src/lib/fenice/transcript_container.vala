@@ -9,7 +9,7 @@ public class TranscriptContainer : Object, Transcript {
     }
 
     public TranscriptContainer.empty() {
-        this.objects = new Gee.ArrayList<TranscriptEntry>();
+        this.objects = Gee.Collection.empty<TranscriptEntry>();
     }
 
     public TranscriptIterator iterator() {
