@@ -10,7 +10,7 @@ public interface TranscriptEntry : Object {
 
     public abstract TranscriptEntryType entry_type();
 
-    public bool recurse() {
+    public virtual bool recurse() {
         return false;
     }
 
