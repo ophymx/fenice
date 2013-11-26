@@ -12,7 +12,6 @@ before_install:
   - sudo apt-get install -qq ${VALAC}
   - sudo apt-get install -qq libgirepository1.0-dev gobject-introspection gir1.2-glib-2.0
   - sudo apt-get install -qq libgee-dev gir1.2-gee-1.0
-  - git submodule update --init --recursive
 before_script:
   - ./waf configure
   - ./waf build
