@@ -20,8 +20,7 @@ public class Tlink : Object, TranscriptEntry {
     }
 
     public bool equal(TranscriptEntry other) {
-        return get_class() == other.get_class() &&
-            target.equal((other as Tlink).target);
+        return object_equal(other) && target.equal((other as Tlink).target);
     }
 }
 
