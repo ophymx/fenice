@@ -1,32 +1,15 @@
 namespace Fenice {
 
 public class WSVFile : Object {
-
     private string filename;
     private string base_dir;
-
-    public struct Entry {
-        public bool blank;
-        public bool minus;
-        public bool comment;
-        public string[] args;
-        public int line_number;
-
-        public Entry(int line_number) {
-            blank = false;
-            minus = false;
-            comment = false;
-            args = new string[0];
-            this.line_number = line_number;
-        }
-    }
 
     public WSVFile(string base_dir, string filename) {
         this.base_dir = base_dir;
         this.filename = filename;
     }
 
-    public WSVFileIterator iterator() {
+    public Iterator iterator() {
         DataInputStream data_stream;
         var path = Path.build_filename(base_dir, filename);
         try {
@@ -36,74 +19,94 @@ public class WSVFile : Object {
             stderr.printf("%s: %s\n", e.message, path);
             Process.exit(1);
         }
-        return new WSVFileIterator(data_stream);
-    }
-}
-
-public class WSVFileIterator : Object {
-
-    private DataInputStream data_stream;
-
-    private WSVFile.Entry? current;
-    private int line_number = 0;
-
-    public WSVFileIterator(DataInputStream data_stream) {
-        this.data_stream = data_stream;
+        return new Iterator(data_stream);
     }
 
-    public bool next() {
-        try {
-            size_t size;
-            var line = data_stream.read_line_utf8(out size);
-            if (line != null) {
-                line_number++;
-                current = parse(line);
-            } else {
-                current = null;
+    public struct Entry {
+        public bool blank;
+        public bool minus;
+        public bool comment;
+        public string[] args;
+        public int line_number;
+
+        private static Regex _separator;
+        private static Regex separator() {
+            if (_separator == null) {
+                try {
+                    _separator = new Regex("[ \t]+");
+                } catch (RegexError e) {
+                    assert_not_reached();
+                }
             }
-        } catch (Error e) {
-            stderr.printf("%s\n", e.message);
-            return false;
+            return _separator;
         }
 
-        if (current == null)
-            return false;
+        public Entry.parse(int line_number, string line) {
+            this.blank = false;
+            this.minus = false;
+            this.comment = false;
+            this.args = new string[0];
+            this.line_number = line_number;
 
-        if (current.blank || current.comment)
-            return next();
+            var args = separator().split(line);
+            int start = 0;
 
-        return true;
+            if (args.length == 0) {
+                this.blank = true;
+                return;
+            }
+
+            if (args[0].has_prefix("#")) {
+                this.comment = true;
+                return;
+            }
+
+            if (args[0] == "-") {
+                this.minus = true;
+                start = 1;
+            }
+
+            if (args.length > start) {
+                this.args = args[start:args.length];
+            }
+        }
     }
 
-    public new WSVFile.Entry get() {
-        return current;
-    }
+    public class Iterator : Object {
+        private DataInputStream data_stream;
+        private Entry? current;
+        private int line_number = 0;
 
-    private WSVFile.Entry parse(string line) {
-        var args = Regex.split_simple("[ \t]+", line);
-        int start = 0;
-        var entry = WSVFile.Entry(line_number);
-
-        if (args.length == 0) {
-            entry.blank = true;
-            return entry;
+        public Iterator(DataInputStream data_stream) {
+            this.data_stream = data_stream;
         }
 
-        if (args[0].has_prefix("#")) {
-            entry.comment = true;
-            return entry;
+        public bool next() {
+            try {
+                var line = data_stream.read_line_utf8(null);
+                if (line != null) {
+                    line_number++;
+                    current = Entry.parse(line_number, line);
+                } else {
+                    current = null;
+                }
+            } catch (Error e) {
+                stderr.printf("%s\n", e.message);
+                return false;
+            }
+
+            if (current == null)
+                return false;
+
+            if (current.blank || current.comment)
+                return next();
+
+            return true;
         }
 
-        if (args[0] == "-") {
-            entry.minus = true;
-            start = 1;
+        public new Entry get() {
+            return current;
         }
-
-        if (args.length > start) {
-            entry.args = args[start:args.length];
-        }
-
-        return entry;
     }
 }
 

@@ -22,10 +22,10 @@ public class TranscriptFile : Object, Transcript {
 
 public class TranscriptFileIterator : Object, TranscriptIterator {
 
-    private WSVFileIterator file_iter;
+    private WSVFile.Iterator file_iter;
     private string filename;
 
-    public TranscriptFileIterator(string filename, WSVFileIterator file_iter) {
+    public TranscriptFileIterator(string filename, WSVFile.Iterator file_iter) {
         this.file_iter = file_iter;
         this.filename = filename;
     }
