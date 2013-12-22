@@ -19,7 +19,8 @@ public class Main {
         var loadset_file = new LoadsetFile.from_path(Options.command_file);
         var loadset = loadset_file.loadset();
 
-        var walker = new Fswalker(Options.path(), loadset.excludes());
+        var fs = new PosixFilesystem();
+        var walker = new Fswalker(Options.path(), fs);
         var transcript = new TranscriptDiffer(loadset, walker);
 
         var presenter = new CreatableTranscriptPresenter();

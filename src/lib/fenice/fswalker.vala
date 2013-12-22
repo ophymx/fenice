@@ -3,15 +3,15 @@ namespace Fenice {
 public class Fswalker : Object, Transcript {
 
     private string path;
-    private Gee.Set<string> _excludes;
+    private Filesystem fs;
 
-    public Fswalker(string path, Gee.Set<string> excludes) {
+    public Fswalker(string path, Filesystem fs) {
         this.path = path;
-        _excludes = excludes;
+        this.fs = fs;
     }
 
     public TranscriptIterator iterator() {
-        return new FswalkerIterator(path);
+        return new FswalkerIterator(path, fs);
     }
 }
 
@@ -23,14 +23,13 @@ public class FswalkerIterator : Object, TranscriptIterator {
         new Gee.LinkedList<Gee.Iterator<string>>();
 
     private TranscriptEntry current;
-    private FilesystemReader fs_reader;
+    private Filesystem fs;
 
     private string path;
 
-    public FswalkerIterator(string path, FilesystemReader fs_reader =
-        new PosixReader()) {
+    public FswalkerIterator(string path, Filesystem fs) {
         this.path = path;
-        this.fs_reader = fs_reader;
+        this.fs = fs;
     }
 
     public bool next() {
@@ -47,7 +46,7 @@ public class FswalkerIterator : Object, TranscriptIterator {
                     return false;
             }
         }
-        current = fs_reader.read(current_path(), ref inodes);
+        current = fs.read(current_path(), ref inodes);
         return true;
     }
 
@@ -56,7 +55,7 @@ public class FswalkerIterator : Object, TranscriptIterator {
     }
 
     private void push_directory() {
-        var dirents = fs_reader.get_directory_entries(current.path.path);
+        var dirents = fs.dir_entries(current.path.path);
         directory_iterators.offer_head(dirents.iterator());
     }
 

@@ -1,6 +1,6 @@
 namespace Fenice {
 
-public class PosixReader : Object, FilesystemReader {
+public class PosixFilesystem : Object, Filesystem {
 
     public TranscriptEntry read(string filename,
         ref Gee.Map<ulong, path_t?> inodes) {
@@ -52,7 +52,7 @@ public class PosixReader : Object, FilesystemReader {
         }
     }
 
-    public Gee.Iterable<string> get_directory_entries(string dirname) {
+    public Gee.Iterable<string> dir_entries(string dirname) {
         var entries = new Gee.TreeSet<string>();
 
         try {
