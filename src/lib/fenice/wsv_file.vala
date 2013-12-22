@@ -41,34 +41,37 @@ public class WSVFile : Object {
             return _separator;
         }
 
-        public Entry.parse(int line_number, string line) {
-            this.blank = false;
-            this.minus = false;
-            this.comment = false;
-            this.args = new string[0];
-            this.line_number = line_number;
+        public static Entry parse(int line_number, string line) {
+            var entry = Entry() {
+                blank = false,
+                minus = false,
+                comment = false,
+                args = new string[0],
+                line_number = line_number
+            };
 
             var args = separator().split(line);
             int start = 0;
 
             if (args.length == 0) {
-                this.blank = true;
-                return;
+                entry.blank = true;
+                return entry;
             }
 
             if (args[0].has_prefix("#")) {
-                this.comment = true;
-                return;
+                entry.comment = true;
+                return entry;
             }
 
             if (args[0] == "-") {
-                this.minus = true;
+                entry.minus = true;
                 start = 1;
             }
 
             if (args.length > start) {
-                this.args = args[start:args.length];
+                entry.args = args[start:args.length];
             }
+            return entry;
         }
     }
 
