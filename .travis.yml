@@ -15,4 +15,5 @@ before_install:
 before_script:
   - ./waf configure
   - ./waf build
+  - "[ -b /dev/ram0 ] || sudo mknod /dev/ram0 b 1 0"
 script: ./waf test
