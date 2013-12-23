@@ -1,6 +1,9 @@
 namespace Fenice {
 
 public interface Transcript : Object {
+    public static Transcript empty() {
+        return new TranscriptContainer.empty();
+    }
 
     public abstract TranscriptIterator iterator();
 }

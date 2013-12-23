@@ -44,7 +44,7 @@ public class Loadset : Object, Transcript {
     }
 
     public TranscriptIterator iterator() {
-        Transcript previous = new TranscriptContainer.empty();
+        Transcript previous = Transcript.empty();
         foreach (var transcript in transcripts) {
             previous = new TranscriptDiffer(previous, transcript, true);
         }
