@@ -41,9 +41,9 @@ public class PosixFilesystemTests : TranscriptTests {
     public void test_dev_loop0() {
         var path = "/dev/ram0";
         var object = fs.read(path, ref inodes);
-        assert(object.equal(
-            new Tblock(path_t(path), mode_t(0660), uid_t(0), gid_t(6), 7, 0)
-        ));
+        var expected = new Tblock(path_t(path), mode_t(0660), uid_t(0),
+            gid_t(0, false), 1, 0);
+        assert(expected.equal(object));
     }
 
     public void test_dev_log() {
