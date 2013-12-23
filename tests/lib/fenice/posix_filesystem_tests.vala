@@ -5,8 +5,8 @@ public class PosixFilesystemTests : TranscriptTests {
         base("PosixFilesystem");
         add_test(".read() identifies dev null as a char device",
             test_dev_null);
-        add_test(".read() identifies dev loop0 as a block device",
-            test_dev_loop0);
+        add_test(".read() identifies dev ram0 as a block device",
+            test_dev_ram0);
         add_test(".read() identifies dev log as a socket",
             test_dev_log);
         add_test(".read() identifies named pipe files",
@@ -38,7 +38,7 @@ public class PosixFilesystemTests : TranscriptTests {
         ));
     }
 
-    public void test_dev_loop0() {
+    public void test_dev_ram0() {
         var path = "/dev/ram0";
         var object = fs.read(path, ref inodes);
         var expected = new Tblock(path_t(path), mode_t(0660), uid_t(0),
