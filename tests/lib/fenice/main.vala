@@ -6,7 +6,7 @@ int main(string[] args) {
 
     tests.add_suite(new TranscriptFileTests().get_suite());
     tests.add_suite(new PosixFilesystemTests().get_suite());
-    tests.add_suite(new TranscriptDifferTests().get_suite());
+    tests.add_suite(new CompositeTranscriptTests().get_suite());
 
     TestSuite property_tests = new TestSuite("Transcript Property");
     property_tests.add_suite(new checksum_tTests().get_suite());

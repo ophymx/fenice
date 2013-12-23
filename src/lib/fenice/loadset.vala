@@ -46,7 +46,7 @@ public class Loadset : Object, Transcript {
     public TranscriptIterator iterator() {
         Transcript previous = Transcript.empty();
         foreach (var transcript in transcripts) {
-            previous = new TranscriptDiffer(previous, transcript, true);
+            previous = new CompositeTranscript(previous, transcript);
         }
         return previous.iterator();
     }

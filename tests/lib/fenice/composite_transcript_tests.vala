@@ -1,14 +1,10 @@
 using Fenice;
-public class TranscriptDifferTests : TranscriptTests {
+public class CompositeTranscriptTests : TranscriptTests {
 
-    public TranscriptDifferTests() {
-        base("TranscriptDiffer");
+    public CompositeTranscriptTests() {
+        base("CompositeTranscript");
         add_test(".iterator() merges simple sorted transcripts",
             test_merge_sorted);
-        add_test(".iterator() detects removed objects",
-            test_removed_file);
-        add_test(".iterator() detects unchanged objects",
-            test_unchanged_file);
     }
 
     protected Gee.ArrayList<TranscriptEntry> l1;
@@ -25,7 +21,7 @@ public class TranscriptDifferTests : TranscriptTests {
         l2 = new Gee.ArrayList<TranscriptEntry>();
         t1 = new TranscriptContainer(l1);
         t2 = new TranscriptContainer(l2);
-        test_transcript = new TranscriptDiffer(t1, t2);
+        test_transcript = new CompositeTranscript(t1, t2);
     }
 
     public override void tear_down() {
@@ -60,34 +56,6 @@ public class TranscriptDifferTests : TranscriptTests {
         assert(iter.get().equal(e));
         assert(iter.next());
         assert(iter.get().equal(f));
-        assert(!iter.next());
-    }
-
-    public void test_removed_file() {
-        var symlink = new Tsymlink(path_t("./tmp"), mode1, uid1, gid1,
-            target_t(path_t("./var/tmp")));
-        l1.add(symlink);
-
-        var iter = test_transcript.iterator();
-
-        assert(iter.next());
-        assert(iter.get().equal(symlink));
-        assert(iter.get().was_removed());
-        assert(iter.get().has_changed());
-        assert(!iter.next());
-    }
-
-    public void test_unchanged_file() {
-        var symlink = new Tsymlink(path_t("./tmp"), mode1, uid1, gid1,
-            target_t(path_t("./var/tmp")));
-        l1.add(symlink);
-        l2.add(symlink);
-
-        var iter = test_transcript.iterator();
-
-        assert(iter.next());
-        assert(iter.get().equal(symlink));
-        assert(!iter.get().has_changed());
         assert(!iter.next());
     }
 }

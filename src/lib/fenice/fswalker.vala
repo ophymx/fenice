@@ -54,7 +54,6 @@ public class FswalkerIterator : Object, TranscriptIterator {
         return expected != null || current != null;
     }
 
-
     public new TranscriptEntry get() {
         TranscriptEntry result;
         if (compare_paths() >= 0) {
@@ -115,6 +114,7 @@ public class FswalkerIterator : Object, TranscriptIterator {
             return null;
         }
     }
+
     private bool objects_match() {
         return expected != null && current != null && expected.equal(current);
     }
