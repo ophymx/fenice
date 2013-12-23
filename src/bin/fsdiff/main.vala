@@ -20,12 +20,10 @@ public class Main {
         var loadset = loadset_file.loadset();
 
         var fs = new PosixFilesystem();
-        var walker = new Fswalker(Options.path(), fs);
-        var transcript = new TranscriptDiffer(loadset, walker);
-
+        var walker = new Fswalker(Options.path(), fs, loadset);
         var presenter = new CreatableTranscriptPresenter();
 
-        foreach (var entry in transcript) {
+        foreach (var entry in walker) {
             if (entry.has_changed()) {
                 output.printf("%s\n", presenter.present(entry));
             }

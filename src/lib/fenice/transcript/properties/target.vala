@@ -32,7 +32,7 @@ public struct target_t {
     }
 
     public bool equal(target_t other) {
-        return (!check) | target.equal(other.target);
+        return (!check) || target.equal(other.target);
     }
 
     public int compare_to(target_t other) {

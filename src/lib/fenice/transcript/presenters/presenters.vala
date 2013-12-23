@@ -101,7 +101,7 @@ public class CreatableTranscriptPresenter : Object, TranscriptEntryPresenter {
         public string present(TranscriptEntry entry) {
             var symlink = entry as Tsymlink;
             var builder = new StringBuilder(symlink.was_removed() ? "- " : "");
-            builder.append_printf("f %-35s\t%s %5s %5s %s",
+            builder.append_printf("s %-35s\t%s %5s %5s %s",
                 symlink.path.to_string(),
                 symlink.mode.to_string(),
                 symlink.uid.to_string(),
